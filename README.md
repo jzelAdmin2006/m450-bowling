@@ -17,3 +17,19 @@
 - Der Strike wird in der Frame Übersicht mit einem X dargestellt, beim nächsten Wurf wird ein neuer Frame gestartet.
 - Für den ersten Frame bekommt man am Ende 18 Punkte, für den zweiten bekommt man 8.
 - Der totale Score beträgt am Ende 26.
+
+
+## Testfall 2
+
+**Beschreibung**: Man wirft das ganze Spiel nur Strikes.
+**Vorbedingungen**:
+- Die Applikation wurde gestartet.
+- Die Umgebungsvariablen wurden korrekt gesetzt.
+- Der Spielstand ist im Ursprungszustand (keine Würfe).
+**Schritte**:
+- 12 Male einen Strike (10 Pins) schiessen.
+- Versuchen, nochmals zu schiessen.
+**Erwartetes Ergebnis**:
+- Es werden die 12 Strikes mit 12 X dargestellt (9 davon jeweils im ersten Wurf der ersten 9 Frames, die letzten 3 im letzten Frame).
+- Man hat am Schluss 300 Punkte.
+- Es kommt bei einem weiteren Schuss eine entsprechende Meldung, dass das Spiel fertig ist und man wieder ein neues starten muss.
