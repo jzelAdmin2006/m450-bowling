@@ -11,7 +11,7 @@ import java.util.*
 data class GameEntity(
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private val id: UInt,
+    val id: UInt,
 
     @NotNull
     val createDate: Date,

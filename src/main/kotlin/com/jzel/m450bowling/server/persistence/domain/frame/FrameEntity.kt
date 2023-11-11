@@ -10,11 +10,7 @@ import org.jetbrains.annotations.NotNull
 data class FrameEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private val id: UInt,
-
-    @ManyToOne
-    @NotNull
-    private val game: GameEntity,
+    val id: UInt,
 
     @NotNull
     @Column(unique = true)
@@ -22,4 +18,8 @@ data class FrameEntity(
 
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER, mappedBy = "frame")
     val throws: List<ThrowEntity>
-)
+) {
+    @ManyToOne
+    @NotNull
+    lateinit var game: GameEntity
+}

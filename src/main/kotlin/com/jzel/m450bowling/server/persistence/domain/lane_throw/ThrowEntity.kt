@@ -9,11 +9,7 @@ import org.jetbrains.annotations.NotNull
 data class ThrowEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private val id: UInt,
-
-    @ManyToOne
-    @NotNull
-    private val frame: FrameEntity,
+    val id: UInt,
 
     @NotNull
     @Column(unique = true)
@@ -21,4 +17,8 @@ data class ThrowEntity(
 
     @NotNull
     val pinsHit: UInt
-)
+) {
+    @ManyToOne
+    @NotNull
+    lateinit var frame: FrameEntity
+}
