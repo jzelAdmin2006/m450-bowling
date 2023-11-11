@@ -1,7 +1,8 @@
-CREATE TABLE Throw (
-    ID INT PRIMARY KEY IDENTITY,
-    FrameID INT NOT NULL,
-    ThrowNumber INT NOT NULL UNIQUE,
-    PinsHit INT CHECK (PinsHit BETWEEN 0 AND 10) NOT NULL,
-    FOREIGN KEY (FrameID) REFERENCES Frame(ID) ON DELETE CASCADE ON UPDATE CASCADE
+CREATE TABLE throw
+(
+    id           INT PRIMARY KEY IDENTITY,
+    frame_id     INT                                   NOT NULL,
+    throw_number INT                                   NOT NULL UNIQUE,
+    pins_hit     INT CHECK (pins_hit BETWEEN 0 AND 10) NOT NULL,
+    FOREIGN KEY (frame_id) REFERENCES frame (id) ON DELETE CASCADE ON UPDATE CASCADE
 );

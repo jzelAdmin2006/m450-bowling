@@ -1,6 +1,7 @@
-CREATE TABLE Frame (
-    ID INT PRIMARY KEY IDENTITY,
-    GameID INT NOT NULL,
-    FrameNumber INT CHECK (FrameNumber BETWEEN 1 AND 10) UNIQUE NOT NULL,
-    FOREIGN KEY (GameID) REFERENCES Game(ID) ON DELETE CASCADE ON UPDATE CASCADE
+CREATE TABLE frame
+(
+    id           INT PRIMARY KEY IDENTITY,
+    game_id      INT                                              NOT NULL,
+    frame_number INT CHECK (frame_number BETWEEN 1 AND 10) UNIQUE NOT NULL,
+    FOREIGN KEY (game_id) REFERENCES game (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
