@@ -1,4 +1,4 @@
-package com.jzel.m450bowling.persistence.lane_throw
+package com.jzel.m450bowling.server.persistence.domain.lane_throw
 
 import org.springframework.data.repository.CrudRepository
 

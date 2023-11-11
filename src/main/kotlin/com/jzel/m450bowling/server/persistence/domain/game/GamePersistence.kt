@@ -1,4 +1,4 @@
-package com.jzel.m450bowling.persistence.game
+package com.jzel.m450bowling.server.persistence.domain.game
 
 import org.springframework.data.repository.CrudRepository
 

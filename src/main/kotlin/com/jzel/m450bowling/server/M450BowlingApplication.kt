@@ -1,4 +1,4 @@
-package com.jzel.m450bowling
+package com.jzel.m450bowling.server
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

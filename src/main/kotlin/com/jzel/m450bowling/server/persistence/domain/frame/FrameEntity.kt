@@ -1,7 +1,7 @@
-package com.jzel.m450bowling.persistence.frame
+package com.jzel.m450bowling.server.persistence.domain.frame
 
-import com.jzel.m450bowling.persistence.game.GameEntity
-import com.jzel.m450bowling.persistence.lane_throw.ThrowEntity
+import com.jzel.m450bowling.server.persistence.domain.game.GameEntity
+import com.jzel.m450bowling.server.persistence.domain.lane_throw.ThrowEntity
 import jakarta.persistence.*
 import org.jetbrains.annotations.NotNull
 

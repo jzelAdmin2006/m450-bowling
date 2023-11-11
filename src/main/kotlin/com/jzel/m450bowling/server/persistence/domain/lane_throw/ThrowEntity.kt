@@ -1,6 +1,6 @@
-package com.jzel.m450bowling.persistence.lane_throw
+package com.jzel.m450bowling.server.persistence.domain.lane_throw
 
-import com.jzel.m450bowling.persistence.frame.FrameEntity
+import com.jzel.m450bowling.server.persistence.domain.frame.FrameEntity
 import jakarta.persistence.*
 import org.jetbrains.annotations.NotNull
 

@@ -1,4 +1,4 @@
-package com.jzel.m450bowling.persistence.frame
+package com.jzel.m450bowling.server.persistence.domain.frame
 
 import org.springframework.data.repository.CrudRepository
 
