@@ -22,7 +22,11 @@ GO
 ALTER TABLE throw
     ADD CONSTRAINT throw_number_rule
         CHECK (
-                    throw_number IN (1, 2)
+                    throw_number = 1
+                OR
+                    throw_number = 2
+                        AND
+                    dbo.get_first_throw_pins(frame_id) < 10
                 OR
                     throw_number = 3
                         AND
