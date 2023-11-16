@@ -15,17 +15,22 @@ class PersistenceMapperService {
         entity.createDate,
         entity.frames.mapIndexed { index, frameEntity ->
             val followingFrameEntity = entity.frames.getOrNull(index + 1)
-            fromEntity(frameEntity, followingFrameEntity)
+            val followingfollowingFrameEntity = entity.frames.getOrNull(index + 2)
+            fromEntity(frameEntity, followingFrameEntity, followingfollowingFrameEntity)
         }
     )
 
-    private fun fromEntity(entity: FrameEntity, followingFrameEntity: FrameEntity?): Frame {
+    private fun fromEntity(
+        entity: FrameEntity,
+        followingFrameEntity: FrameEntity?,
+        followingfollowingFrameEntity: FrameEntity?
+    ): Frame {
         return Frame(
             entity.frameNumber,
             entity.throws.map { throwEntity ->
                 fromEntity(throwEntity)
             },
-            followingFrameEntity?.let { fromEntity(it, null) }
+            followingFrameEntity?.let { fromEntity(it, followingfollowingFrameEntity, null) }
         )
     }
 

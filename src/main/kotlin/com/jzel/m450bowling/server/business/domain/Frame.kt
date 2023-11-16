@@ -43,15 +43,22 @@ open class Frame(
         get() = _throws.sumOf { it.pinsHit } + bonusScore()
 
     private fun bonusScore(): UInt {
-        return if (frameNumber == 10u) {
-            0u
-        } else if (isStrike(_throws[0])) {
-            followingFrame?.let { it._throws[0].pinsHit + (it._throws.getOrNull(1)?.pinsHit ?: 0u) }
-                ?: 0u
-        } else if (isSpare(_throws[0])) {
-            followingFrame?.let { it._throws[0].pinsHit } ?: 0u
-        } else {
-            0u
+        return when {
+            frameNumber == 10u -> 0u
+
+            isStrike(_throws[0]) -> {
+                followingFrame?.let { following ->
+                    val followingPinsHit = following._throws[0].pinsHit
+                    if (isStrike(following._throws[0]) && following.frameNumber < 10u) {
+                        followingPinsHit + (following.followingFrame?._throws?.get(0)?.pinsHit ?: 0u)
+                    } else {
+                        followingPinsHit + (following._throws.getOrNull(1)?.pinsHit ?: 0u)
+                    }
+                } ?: 0u
+            }
+
+            isSpare(_throws[0]) -> followingFrame?.let { it._throws[0].pinsHit } ?: 0u
+            else -> 0u
         }
     }
 }
