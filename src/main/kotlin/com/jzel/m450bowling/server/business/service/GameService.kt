@@ -7,6 +7,6 @@ import org.springframework.stereotype.Service
 @Service
 class GameService(val repository: GameRepository) {
     fun getPersistedGames(): List<Game> {
-        return repository.findAll().sortedByDescending { it.createDate }.dropLast(1)
+        return repository.findAll().sortedBy { it.createDate }.dropLast(1)
     }
 }
