@@ -19,6 +19,16 @@ BEGIN
 END;
 GO
 
+CREATE FUNCTION get_frame_number(@frame_id INT)
+    RETURNS INT
+AS
+BEGIN
+    RETURN (SELECT frame_number
+            FROM frame
+            WHERE id = @frame_id)
+END;
+GO
+
 ALTER TABLE throw
     ADD CONSTRAINT throw_number_rule
         CHECK (
