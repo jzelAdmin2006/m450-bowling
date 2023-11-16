@@ -36,7 +36,7 @@ ALTER TABLE throw
                 OR
                     throw_number = 2
                         AND
-                    (dbo.get_first_throw_pins(frame_id) < 10 OR get_frame_number(frame_id) = 10)
+                    (dbo.get_first_throw_pins(frame_id) < 10 OR dbo.get_frame_number(frame_id) = 10)
                 OR
                     throw_number = 3
                         AND
@@ -48,5 +48,5 @@ ALTER TABLE throw
         CHECK (
                 dbo.get_frame_pins(frame_id) BETWEEN 0 AND 10
                 OR
-                get_frame_number(frame_id) = 10
+                dbo.get_frame_number(frame_id) = 10
             );
