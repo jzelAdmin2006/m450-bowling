@@ -10,23 +10,24 @@ import org.springframework.stereotype.Service
 
 @Service
 class PersistenceMapperService {
-    fun fromEntity(entity: GameEntity): Game {
-        return Game(
-            entity.id,
-            entity.createDate,
-            entity.frames.map { frameEntity ->
-                fromEntity(frameEntity)
-            }
-        )
-    }
+    fun fromEntity(entity: GameEntity) = Game(
+        entity.id,
+        entity.createDate,
+        entity.frames.mapIndexed { index, frameEntity ->
+            val followingFrameEntity = entity.frames.getOrNull(index + 1)
+            fromEntity(frameEntity, followingFrameEntity)
+        }
+    )
 
-    private fun PersistenceMapperService.fromEntity(entity: FrameEntity) =
-        Frame(
+    private fun fromEntity(entity: FrameEntity, followingFrameEntity: FrameEntity?): Frame {
+        return Frame(
             entity.frameNumber,
             entity.throws.map { throwEntity ->
                 fromEntity(throwEntity)
-            }
+            },
+            followingFrameEntity?.let { fromEntity(it, null) }
         )
+    }
 
     private fun fromEntity(entity: ThrowEntity) = Throw(
         entity.throwNumber,

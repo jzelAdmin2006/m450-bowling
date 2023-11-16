@@ -31,23 +31,27 @@ open class Frame(
         }
     }
 
-    private fun isStrike(laneThrow: Throw): Boolean =
-        laneThrow.pinsHit == 10u && (laneThrow.throwNumber == 1u || laneThrow.throwNumber == 3u || frameNumber == 10u && isStrike(
+    private fun isStrike(laneThrow: Throw?): Boolean =
+        laneThrow?.pinsHit == 10u && (laneThrow.throwNumber == 1u || laneThrow.throwNumber == 3u || frameNumber == 10u && isStrike(
             _throws[0]
         ))
 
-    private fun isSpare(laneThrow: Throw) =
-        laneThrow.throwNumber == 2u && _throws[0].pinsHit + laneThrow.pinsHit == 10u
+    private fun isSpare(laneThrow: Throw?) =
+        laneThrow?.throwNumber == 2u && _throws[0].pinsHit + laneThrow.pinsHit == 10u
 
     val score: UInt
         get() = _throws.sumOf { it.pinsHit } + bonusScore()
 
     private fun bonusScore(): UInt {
         return if (frameNumber == 10u) {
-            if (isStrike(_throws[0])) _throws[1].pinsHit + _throws[2].pinsHit else 0u +
-                    if (isStrike(_throws[1]) || isSpare(_throws[1])) _throws[2].pinsHit else 0u
+            if (isStrike(_throws[0])) _throws.getOrNull(1)?.pinsHit ?: 0u + (_throws.getOrNull(2)?.pinsHit ?: 0u)
+            else 0u +
+                    if (isStrike(_throws.getOrNull(1)) || isSpare(_throws.getOrNull(1))) _throws.getOrNull(2)?.pinsHit
+                        ?: 0u
+                    else 0u
         } else if (isStrike(_throws[0])) {
-            followingFrame?.let { it._throws[0].pinsHit + it._throws[1].pinsHit } ?: 0u
+            followingFrame?.let { it._throws[0].pinsHit + (it._throws.getOrNull(1)?.pinsHit ?: 0u) }
+                ?: 0u
         } else if (isSpare(_throws[0])) {
             followingFrame?.let { it._throws[0].pinsHit } ?: 0u
         } else {
