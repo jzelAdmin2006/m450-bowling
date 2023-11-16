@@ -4,7 +4,6 @@ import com.jzel.m450bowling.server.business.domain.lane_throw.CustomDisplayedThr
 import com.jzel.m450bowling.server.business.domain.lane_throw.Throw
 import com.jzel.m450bowling.server.business.domain.lane_throw.ThrowDisplay
 import com.jzel.m450bowling.server.business.domain.lane_throw.ThrowDisplay.*
-import java.util.*
 
 open class Frame(
     val frameNumber: UInt,
@@ -33,11 +32,26 @@ open class Frame(
     }
 
     private fun isStrike(laneThrow: Throw): Boolean =
-        laneThrow.pinsHit == 10u && (laneThrow.throwNumber == 1u || frameNumber == 10u && isStrike(_throws[0]))
+        laneThrow.pinsHit == 10u && (laneThrow.throwNumber == 1u || laneThrow.throwNumber == 3u || frameNumber == 10u && isStrike(
+            _throws[0]
+        ))
 
     private fun isSpare(laneThrow: Throw) =
         laneThrow.throwNumber == 2u && _throws[0].pinsHit + laneThrow.pinsHit == 10u
 
     val score: UInt
-        get() = Random().nextInt(300).toUInt() // TODO: Implement score calculation
+        get() = _throws.sumOf { it.pinsHit } + bonusScore()
+
+    private fun bonusScore(): UInt {
+        return if (frameNumber == 10u) {
+            if (isStrike(_throws[0])) _throws[1].pinsHit + _throws[2].pinsHit else 0u +
+                    if (isStrike(_throws[1]) || isSpare(_throws[1])) _throws[2].pinsHit else 0u
+        } else if (isStrike(_throws[0])) {
+            followingFrame?.let { it._throws[0].pinsHit + it._throws[1].pinsHit } ?: 0u
+        } else if (isSpare(_throws[0])) {
+            followingFrame?.let { it._throws[0].pinsHit } ?: 0u
+        } else {
+            0u
+        }
+    }
 }
