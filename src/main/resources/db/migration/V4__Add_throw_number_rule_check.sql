@@ -26,7 +26,7 @@ ALTER TABLE throw
                 OR
                     throw_number = 2
                         AND
-                    dbo.get_first_throw_pins(frame_id) < 10
+                    (dbo.get_first_throw_pins(frame_id) < 10 OR frame_id = 10)
                 OR
                     throw_number = 3
                         AND
