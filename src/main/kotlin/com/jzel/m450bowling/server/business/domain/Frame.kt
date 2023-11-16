@@ -25,16 +25,18 @@ open class Frame(
             MISS
         } else if (isStrike(it)) {
             STRIKE
-        } else if (it.throwNumber == 2u && _throws[0].pinsHit + it.pinsHit == 10u) {
+        } else if (isSpare(it)) {
             SPARE
         } else {
             ThrowDisplay.fromPinsHit(it.pinsHit)
         }
     }
 
-    private fun isStrike(laneThrow: Throw): Boolean {
-        return laneThrow.pinsHit == 10u && (laneThrow.throwNumber == 1u || frameNumber == 10u && isStrike(_throws[0]))
-    }
+    private fun isStrike(laneThrow: Throw): Boolean =
+        laneThrow.pinsHit == 10u && (laneThrow.throwNumber == 1u || frameNumber == 10u && isStrike(_throws[0]))
+
+    private fun isSpare(laneThrow: Throw) =
+        laneThrow.throwNumber == 2u && _throws[0].pinsHit + laneThrow.pinsHit == 10u
 
     val score: UInt
         get() = Random().nextInt(300).toUInt() // TODO: Implement score calculation
