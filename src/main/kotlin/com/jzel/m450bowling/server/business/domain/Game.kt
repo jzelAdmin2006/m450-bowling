@@ -8,5 +8,5 @@ data class Game(
     val frames: List<Frame>,
 ) {
     val score: UInt
-        get() = Random().nextInt(300).toUInt() // TODO: Implement score calculation
+        get() = frames.sumOf { it.score }
 }
