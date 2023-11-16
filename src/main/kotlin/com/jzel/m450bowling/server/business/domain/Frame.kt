@@ -44,11 +44,7 @@ open class Frame(
 
     private fun bonusScore(): UInt {
         return if (frameNumber == 10u) {
-            if (isStrike(_throws[0])) _throws.getOrNull(1)?.pinsHit ?: 0u + (_throws.getOrNull(2)?.pinsHit ?: 0u)
-            else 0u +
-                    if (isStrike(_throws.getOrNull(1)) || isSpare(_throws.getOrNull(1))) _throws.getOrNull(2)?.pinsHit
-                        ?: 0u
-                    else 0u
+            0u
         } else if (isStrike(_throws[0])) {
             followingFrame?.let { it._throws[0].pinsHit + (it._throws.getOrNull(1)?.pinsHit ?: 0u) }
                 ?: 0u
