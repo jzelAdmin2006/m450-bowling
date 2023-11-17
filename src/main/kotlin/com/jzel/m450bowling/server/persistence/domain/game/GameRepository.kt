@@ -18,7 +18,7 @@ class GameRepository(
     fun save(game: Game): Game {
         var gameEntity = mapper.toEntity(game)
         gameEntity = persistence.save(gameEntity)
-        frameRepository.save(game.frames, gameEntity)
+        gameEntity.frames = frameRepository.save(game.frames, gameEntity)
         return mapper.fromEntity(gameEntity)
     }
 }

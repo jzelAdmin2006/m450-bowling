@@ -28,7 +28,7 @@ class GameService(val repository: GameRepository) {
             activeGame = newGame
         }
         laneThrow(activeGame, pinsHit)
-        repository.save(activeGame)
+        activeGame = repository.save(activeGame)
         return activeGame
     }
 

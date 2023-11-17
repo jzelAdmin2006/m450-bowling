@@ -17,5 +17,5 @@ data class GameEntity(
     val createDate: Date,
 
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER, mappedBy = "game")
-    val frames: List<FrameEntity>
+    var frames: List<FrameEntity>
 )

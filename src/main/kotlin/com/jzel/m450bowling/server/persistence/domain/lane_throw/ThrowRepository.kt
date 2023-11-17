@@ -10,9 +10,16 @@ class ThrowRepository(
     val persistence: ThrowPersistence,
     val mapper: PersistenceMapperService,
 ) {
-    fun save(throwsWithPersistedFrames: List<Pair<FrameEntity, List<Throw>>>) {
-        persistence.saveAll(throwsWithPersistedFrames.map { (frameEntity, throws) ->
-            throws.map { mapper.toEntity(it, frameEntity) }
-        }.flatten())
+    fun save(persistedFramesWithThrows: Map<FrameEntity, List<Throw>>): Map<FrameEntity, List<ThrowEntity>> {
+        val persistedFramesWithMappedThrows = persistedFramesWithThrows.map { (frameEntity, throws) ->
+            frameEntity to throws.map { mapper.toEntity(it, frameEntity) }
+        }.toMap()
+        val result: MutableMap<FrameEntity, MutableList<ThrowEntity>> = mutableMapOf()
+        persistence.saveAll(persistedFramesWithMappedThrows.map { it.value }.flatten())
+            .forEach { throwEntity ->
+                result.getOrPut(persistedFramesWithMappedThrows.keys.find { it.id == throwEntity.frame.id }!!) { mutableListOf() }
+                    .add(throwEntity)
+            }
+        return result
     }
 }

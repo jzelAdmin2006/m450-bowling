@@ -17,7 +17,7 @@ data class FrameEntity(
     val frameNumber: UInt,
 
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER, mappedBy = "frame")
-    val throws: List<ThrowEntity>
+    var throws: List<ThrowEntity>
 ) {
     @ManyToOne
     @NotNull

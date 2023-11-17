@@ -12,11 +12,15 @@ class FrameRepository(
     val mapper: PersistenceMapperService,
     val throwRepository: ThrowRepository
 ) {
-    fun save(frames: List<Frame>, persistedGame: GameEntity) {
+    fun save(frames: List<Frame>, persistedGame: GameEntity): List<FrameEntity> {
         val frameEntities = frames.map { mapper.toEntity(it, persistedGame) }
         persistence.saveAll(frameEntities)
-        throwRepository.save(frameEntities.mapIndexed { index, frameEntity ->
-            Pair(frameEntity, frames[index].throws)
-        })
+        val throwEntitiesPerFrameEntity = throwRepository.save(frameEntities.mapIndexed { index, frameEntity ->
+            frameEntity to frames[index].throws
+        }.toMap())
+        frameEntities.forEach { frameEntity ->
+            frameEntity.throws = throwEntitiesPerFrameEntity[frameEntity] ?: emptyList()
+        }
+        return frameEntities
     }
 }
