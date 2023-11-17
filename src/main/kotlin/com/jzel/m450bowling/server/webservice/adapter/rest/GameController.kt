@@ -19,5 +19,5 @@ class GameController(val service: GameService) {
     fun getActiveGame(): ResponseEntity<Game> {
         return ResponseEntity.ok(service.getActiveGame())
     }
-    // TODO: Implement endpoints POST /throw (in separate ThrowController), POST /game, DELETE /game
+    // TODO: Implement endpoints POST /game for finishing games (validate if game is finished), DELETE /game for resetting active game
 }
