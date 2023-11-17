@@ -7,17 +7,25 @@ import com.jzel.m450bowling.server.business.domain.lane_throw.ThrowDisplay.*
 
 open class Frame(
     val frameNumber: UInt,
-    private val _throws: List<Throw>,
-    private val followingFrame: Frame? = null
+    private val _throws: MutableList<Throw>,
+    private val followingFrame: Frame? = null,
+    private val _id: UInt? = null
 ) {
+    fun idValue() = _id ?: UInt.MIN_VALUE
+
     val throws: List<Throw>
         get() = _throws.map {
             CustomDisplayedThrow(
                 customThrowDisplay(it),
                 it.throwNumber,
-                it.pinsHit
+                it.pinsHit,
+                it.idValue()
             )
         }
+
+    fun addThrow(laneThrow: Throw) {
+        _throws.add(laneThrow)
+    }
 
     private fun customThrowDisplay(it: Throw): ThrowDisplay {
         return if (it.pinsHit == 0u) {
@@ -45,7 +53,7 @@ open class Frame(
     private fun bonusScore(): UInt {
         return when {
             frameNumber == 10u -> 0u
-
+            _throws.isEmpty() -> 0u
             isStrike(_throws[0]) -> {
                 followingFrame?.let { following ->
                     val followingPinsHit = following._throws[0].pinsHit

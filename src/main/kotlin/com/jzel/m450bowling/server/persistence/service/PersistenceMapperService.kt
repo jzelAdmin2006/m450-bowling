@@ -17,7 +17,7 @@ class PersistenceMapperService {
             val followingFrameEntity = entity.frames.getOrNull(index + 1)
             val followingfollowingFrameEntity = entity.frames.getOrNull(index + 2)
             fromEntity(frameEntity, followingFrameEntity, followingfollowingFrameEntity)
-        }
+        }.toMutableList()
     )
 
     private fun fromEntity(
@@ -29,37 +29,43 @@ class PersistenceMapperService {
             entity.frameNumber,
             entity.throws.map { throwEntity ->
                 fromEntity(throwEntity)
-            },
-            followingFrameEntity?.let { fromEntity(it, followingfollowingFrameEntity, null) }
+            }.toMutableList(),
+            followingFrameEntity?.let { fromEntity(it, followingfollowingFrameEntity, null) },
+            entity.id
         )
     }
 
     private fun fromEntity(entity: ThrowEntity) = Throw(
         entity.throwNumber,
-        entity.pinsHit
+        entity.pinsHit,
+        entity.id
     )
 
     fun toEntity(game: Game): GameEntity {
         return GameEntity(
             game.id ?: UInt.MIN_VALUE,
             game.createDate,
-            game.frames.map { frame ->
-                toEntity(frame)
-            }
+            listOf()
         )
     }
 
-    private fun toEntity(frame: Frame) = FrameEntity(
-        UInt.MIN_VALUE,
-        frame.frameNumber,
-        frame.throws.map { laneThrow ->
-            ToEntity(laneThrow)
-        }
-    )
+    fun toEntity(frame: Frame, game: GameEntity): FrameEntity {
+        val frameEntity = FrameEntity(
+            frame.idValue(),
+            frame.frameNumber,
+            listOf(),
+        )
+        frameEntity.game = game
+        return frameEntity
+    }
 
-    private fun ToEntity(laneThrow: Throw) = ThrowEntity(
-        UInt.MIN_VALUE,
-        laneThrow.throwNumber,
-        laneThrow.pinsHit
-    )
+    fun toEntity(laneThrow: Throw, frame: FrameEntity): ThrowEntity {
+        val throwEntity = ThrowEntity(
+            laneThrow.idValue(),
+            laneThrow.throwNumber,
+            laneThrow.pinsHit
+        )
+        throwEntity.frame = frame
+        return throwEntity
+    }
 }
