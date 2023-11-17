@@ -9,4 +9,8 @@ class GameService(val repository: GameRepository) {
     fun getPersistedGames(): List<Game> {
         return repository.findAll().sortedBy { it.createDate }.dropLast(1)
     }
+
+    fun getActiveGame(): Game? {
+        return repository.findAll().maxByOrNull { it.createDate }
+    }
 }

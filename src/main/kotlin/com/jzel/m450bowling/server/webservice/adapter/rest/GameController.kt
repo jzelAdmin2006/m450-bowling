@@ -15,5 +15,9 @@ class GameController(val service: GameService) {
         return ResponseEntity.ok(service.getPersistedGames())
     }
 
-    // TODO: Implement endpoints GET /game/active, POST /throw (in separate ThrowController), POST /game, DELETE /game
+    @GetMapping("/active")
+    fun getActiveGame(): ResponseEntity<Game> {
+        return ResponseEntity.ok(service.getActiveGame())
+    }
+    // TODO: Implement endpoints POST /throw (in separate ThrowController), POST /game, DELETE /game
 }
