@@ -27,9 +27,7 @@ class PersistenceMapperService {
     ): Frame {
         return Frame(
             entity.frameNumber,
-            entity.throws.map { throwEntity ->
-                fromEntity(throwEntity)
-            }.toMutableList(),
+            entity.throws.map { fromEntity(it) }.toMutableList(),
             followingFrameEntity?.let { fromEntity(it, followingfollowingFrameEntity, null) },
             entity.id
         )
