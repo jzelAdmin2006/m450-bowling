@@ -41,8 +41,8 @@ class PersistenceMapperService {
 
     fun toEntity(frame: Frame, game: GameEntity): FrameEntity {
         val frameEntity = FrameEntity(
-            frame.idValue(),
             frame.frameNumber,
+            frame.idValue(),
             listOf(),
         )
         frameEntity.game = game
