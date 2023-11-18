@@ -51,11 +51,30 @@ class AutomatedReadMeCasesTest {
         helper.laneThrow(5u)
         val secondResponse = helper.laneThrow(3u)
 
-        firstFrameIsStrike(strikeResponse)
+        isStrikeFrame(1, strikeResponse)
         frameHasScore(1, strikeResponse, 10)
-        firstFrameIsStrike(secondResponse)
+        isStrikeFrame(1, secondResponse)
         frameHasScore(1, secondResponse, 18)
         frameHasScore(2, secondResponse, 8)
         totalScoreIs(secondResponse, 26)
+    }
+
+
+    /**
+     * test case #2 from ReadMe.md
+     */
+    @Test
+    fun emptyGame_playPerfectGame_scoreIsCorrect() {
+        for (i in 1..11) {
+            helper.laneThrow(10u)
+        }
+        val response = helper.laneThrow(10u)
+
+        totalScoreIs(response, 300)
+        for (n in 1..10) {
+            isStrikeFrame(n, response)
+        }
+        throwIsStrike(2, 10, response)
+        throwIsStrike(3, 10, response)
     }
 }
