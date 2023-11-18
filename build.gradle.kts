@@ -35,6 +35,10 @@ dependencies {
     runtimeOnly("com.microsoft.sqlserver:mssql-jdbc")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
+    testImplementation("org.testcontainers:junit-jupiter:1.19.2")
+    testImplementation("org.mockito:mockito-junit-jupiter:5.7.0")
+    testImplementation("org.hamcrest:hamcrest-all:1.3")
 }
 
 tasks.withType<KotlinCompile> {
