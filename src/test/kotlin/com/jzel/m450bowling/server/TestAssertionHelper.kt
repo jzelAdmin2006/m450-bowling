@@ -7,6 +7,13 @@ import org.junit.jupiter.api.Assertions
 fun nthGame(n: Int, gamesAsJson: String) =
     ObjectMapper().registerKotlinModule().readTree(gamesAsJson)[n - 1].toString()
 
+fun gameHasFrames(gameAsJson: String, expectedFrames: Int) {
+    Assertions.assertEquals(
+        expectedFrames, ObjectMapper().registerKotlinModule().readTree(gameAsJson)
+            .path("frames").size()
+    )
+}
+
 fun totalScoreIs(gameAsJson: String, expectedScore: Int) {
     Assertions.assertEquals(
         expectedScore, ObjectMapper().registerKotlinModule().readTree(gameAsJson)

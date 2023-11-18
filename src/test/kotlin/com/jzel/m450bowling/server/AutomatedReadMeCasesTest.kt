@@ -5,6 +5,7 @@ import com.jzel.m450bowling.server.persistence.domain.game.GamePersistence
 import com.jzel.m450bowling.server.webservice.adapter.rest.GameController
 import com.jzel.m450bowling.server.webservice.adapter.rest.GameThrowController
 import jakarta.transaction.Transactional
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -321,5 +322,23 @@ class AutomatedReadMeCasesTest {
             throwIsMiss(1, n, gutterGame)
             throwIsMiss(2, n, gutterGame)
         }
+    }
+
+    /**
+     * test case #17 from ReadMe.md
+     */
+    @Test
+    fun activeCompletedGutterGame_endGame_isPersisted() {
+        for (n in 1..20) {
+            helper.laneThrow(0u)
+        }
+        val response = helper.endGame()
+
+        val gamesResponse = helper.getGames()
+        val activeGameResponse = helper.activeGame()
+
+        assertEquals(response, nthGame(1, gamesResponse))
+        gameHasFrames(response, 10)
+        gameHasFrames(activeGameResponse, 0)
     }
 }
