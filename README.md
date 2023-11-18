@@ -119,7 +119,7 @@
 - Abwechselnd einen Strike und zwei Gutterballs werfen.
 **Erwartetes Ergebnis**:
 - Nach jedem Strike werden die Punkte der nächsten zwei Würfe hinzugefügt (in diesem Fall 0).
-- Die Gesamtpunktzahl berechnet sich aus der Summe aller Frames.
+- Die Gesamtpunktzahl berechnet sich aus der Summe aller Frames (50).
 
 ## Testfall 10
 
