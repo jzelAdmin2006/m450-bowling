@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/throw")
 class GameThrowController(val service: GameService) {
     @PostMapping("/{pinsHit}")
-    fun laneThrow(@PathVariable pinsHit: UInt): ResponseEntity<Game> {
-        return ResponseEntity.ok(service.laneThrow(pinsHit))
-    }
+    fun laneThrow(@PathVariable pinsHit: UInt): ResponseEntity<Game> =
+        if (service.prevalidateThrow(pinsHit)) {
+            ResponseEntity.ok(service.laneThrow(pinsHit))
+        } else {
+            ResponseEntity.badRequest().build()
+        }
 
 }
