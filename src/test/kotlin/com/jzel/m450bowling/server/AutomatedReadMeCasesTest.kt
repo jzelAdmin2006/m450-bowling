@@ -1,11 +1,9 @@
 package com.jzel.m450bowling.server
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import com.jzel.m450bowling.server.persistence.domain.game.GamePersistence
 import com.jzel.m450bowling.server.webservice.adapter.rest.GameThrowController
 import jakarta.transaction.Transactional
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -13,11 +11,8 @@ import org.junit.jupiter.api.TestInstance.Lifecycle
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.json.JacksonTester
-import org.springframework.http.MediaType
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 
 
@@ -31,6 +26,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders
 class AutomatedReadMeCasesTest {
     private lateinit var mvc: MockMvc
 
+    private lateinit var helper: TestHelper
+
     @Autowired
     private lateinit var controller: GameThrowController
 
@@ -42,6 +39,7 @@ class AutomatedReadMeCasesTest {
         persistence.deleteAll()
         JacksonTester.initFields(this, ObjectMapper())
         mvc = MockMvcBuilders.standaloneSetup(controller).build()
+        helper = TestHelper(mvc)
     }
 
     /**
@@ -49,12 +47,15 @@ class AutomatedReadMeCasesTest {
      */
     @Test
     fun emptyGame_strikeWithAdditionalThrows_scoreOfStrikeFrameIsCumulated() {
-        val response = mvc.perform(MockMvcRequestBuilders.post("/throw/10").accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk()).andReturn().response.contentAsString
+        val strikeResponse = helper.laneThrow(10u)
+        helper.laneThrow(5u)
+        val secondResponse = helper.laneThrow(3u)
 
-        assertEquals(
-            "X", ObjectMapper().registerKotlinModule().readTree(response)
-                .path("frames")[0].path("throws")[0].path("display").asText()
-        )
+        firstFrameIsStrike(strikeResponse)
+        frameHasScore(1, strikeResponse, 10)
+        firstFrameIsStrike(secondResponse)
+        frameHasScore(1, secondResponse, 18)
+        frameHasScore(2, secondResponse, 8)
+        totalScoreIs(secondResponse, 26)
     }
 }
