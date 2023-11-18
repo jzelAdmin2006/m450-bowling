@@ -1,5 +1,7 @@
 # m450-bowling
 
+Diese Testfälle wurden für dieses Projekt automatisiert. Es handelt sich dabei nicht um klassische Unit-Tests, sondern der Fokus lag in der Automatisierung von vorher manuellen Tests mit der möglichst gleich hohen Aussagekraft. Daher sind diese eher Integrationstests bzw. fast schon Systemtests.
+
 ## Testfall 1
 
 **Beschreibung**: Man macht einen Strike im ersten Frame, der Einfluss auf die Punkte der nächsten Würfe hat.
@@ -147,7 +149,7 @@
 - Abwechselnd einen Gutterball (0 Pins) und einen Spare (10 Pins) werfen.
 **Erwartetes Ergebnis**:
 - Die Würfe mit 10 Pins werden alle korrekt als Spare (und nicht als Strike) mit einem Slash dargestellt.
-- Nach jedem Gutterball bleibt der Score bei 0.
+- Nach jedem Gutterball bleibt der Score.
 - Man kann im letzten Frame drei Würfe machen.
 - Der Score am Ende beträgt 100.
 
@@ -211,7 +213,7 @@
 - Die Applikation wurde gestartet.
 - Die Umgebungsvariablen wurden korrekt gesetzt.
 - Es wurden zwei Spiele persistiert:
-	- Ein "Gutter Game" (10 × 0 Pins)
+	- Ein "Gutter Game" (20 × 0 Pins)
 	- Ein perfektes Game (12 × 10 Pins)
 **Schritte**:
 - Man ruft den Befehl zum Abfragen aller persistierten Spiele auf.
