@@ -226,4 +226,30 @@ class AutomatedReadMeCasesTest {
             throwIsSpare(2, n, response)
         }
     }
+
+    /**
+     * test case #12 from ReadMe.md
+     */
+    @Test
+    fun emptyGame_fullGameWithAlwaysSpare_frameScoresAreCumulatedWithNextThrow() {
+        for (n in 1..9) {
+            helper.laneThrow(n.toUInt())
+            helper.laneThrow(10u - n.toUInt())
+        }
+        helper.laneThrow(0u)
+        helper.laneThrow(10u)
+        val response = helper.laneThrow(0u)
+
+        totalScoreIs(response, 144)
+        for (n in 1..8) {
+            frameHasScore(n, response, 11 + n)
+            throwIsSpare(2, n, response)
+        }
+        frameHasScore(9, response, 10)
+        throwIsSpare(2, 9, response)
+        frameHasScore(10, response, 10)
+        throwIsMiss(1, 10, response)
+        throwIsSpare(2, 10, response)
+        throwIsMiss(3, 10, response)
+    }
 }
