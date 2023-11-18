@@ -2,31 +2,20 @@ package com.jzel.m450bowling.server.business.domain.lane_throw
 
 enum class ThrowDisplay(val displayString: String) {
 
-    EIGHT("8"),
-
-    FIVE("5"),
-
-    FOUR("4"),
-
-    MISS("-"),
-
-    NINE("9"),
-
+    ZERO("0"),
     ONE("1"),
-
-    SEVEN("7"),
-
-    SIX("6"),
-
-    SPARE("/"),
-
-    STRIKE("X"),
-
-    TEN("10"),
-
+    TWO("2"),
     THREE("3"),
-
-    TWO("2");
+    FOUR("4"),
+    FIVE("5"),
+    SIX("6"),
+    SEVEN("7"),
+    EIGHT("8"),
+    NINE("9"),
+    TEN("10"),
+    MISS("-"),
+    SPARE("/"),
+    STRIKE("X");
 
     companion object {
         fun fromPinsHit(pinsHit: UInt): ThrowDisplay {
