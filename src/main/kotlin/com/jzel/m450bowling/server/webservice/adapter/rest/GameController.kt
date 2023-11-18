@@ -25,5 +25,5 @@ class GameController(val service: GameService) {
     fun resetActiveGame(): ResponseEntity<Game> {
         return ResponseEntity.ok(service.resetActive())
     }
-    // TODO: Implement endpoints POST /game for finishing games (validate if game is finished)
+    // TODO: Implement endpoints PUT /game for finishing games (validate if game is finished)
 }
