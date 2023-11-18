@@ -46,7 +46,7 @@ open class Frame(
                 } ?: 0u
             }
 
-            isSpare(_throws[0]) -> followingFrame?.let { it._throws[0].pinsHit } ?: 0u
+            isSpare(_throws.getOrNull(1)) -> followingFrame?.let { it._throws[0].pinsHit } ?: 0u
             else -> 0u
         }
     }
