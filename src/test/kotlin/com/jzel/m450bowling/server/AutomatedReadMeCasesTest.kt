@@ -195,7 +195,7 @@ class AutomatedReadMeCasesTest {
      * test case #10 from ReadMe.md
      */
     @Test
-    fun emptyGame_fullGameWithStrikeInLastFrame_lastFrameHasOneBonusThrow() {
+    fun emptyGame_fullGameWithStrikeInLastFrame_lastFrameHasBonusThrow() {
         for (n in 1..18) {
             helper.laneThrow(1u)
         }
@@ -251,5 +251,22 @@ class AutomatedReadMeCasesTest {
         throwIsMiss(1, 10, response)
         throwIsSpare(2, 10, response)
         throwIsMiss(3, 10, response)
+    }
+
+    /**
+     * test case #13 from ReadMe.md
+     */
+    @Test
+    fun emptyGame_fullGameWithSpareInLastFrame_lastFrameHasBonusThrow() {
+        for (n in 1..18) {
+            helper.laneThrow(1u)
+        }
+        helper.laneThrow(5u)
+        helper.laneThrow(5u)
+        val response = helper.laneThrow(6u)
+
+        totalScoreIs(response, 34)
+        throwIsSpare(2, 10, response)
+        frameHasScore(10, response, 16)
     }
 }
