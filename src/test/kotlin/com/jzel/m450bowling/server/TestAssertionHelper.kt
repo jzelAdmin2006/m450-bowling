@@ -26,6 +26,10 @@ fun throwIsStrike(throwNumber: Int, frameNumber: Int, gameAsJson: String) {
     throwIsCustomDisplay(gameAsJson, frameNumber, throwNumber, "X")
 }
 
+fun throwIsSpare(throwNumber: Int, frameNumber: Int, gameAsJson: String) {
+    throwIsCustomDisplay(gameAsJson, frameNumber, throwNumber, "/")
+}
+
 fun throwIsMiss(throwNumber: Int, frameNumber: Int, gameAsJson: String) {
     throwIsCustomDisplay(gameAsJson, frameNumber, throwNumber, "-")
 }

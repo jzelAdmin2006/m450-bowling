@@ -164,6 +164,7 @@ class AutomatedReadMeCasesTest {
         totalScoreIs(response, 110)
         for (n in 1..5) {
             frameHasScore(n * 2 - 1, response, 14)
+            throwIsSpare(2, n * 2 - 1, response)
             frameHasScore(n * 2, response, 8)
         }
     }
@@ -205,5 +206,24 @@ class AutomatedReadMeCasesTest {
         totalScoreIs(response, 36)
         throwIsStrike(1, 10, response)
         frameHasScore(10, response, 18)
+    }
+
+    /**
+     * test case #11 from ReadMe.md
+     */
+    @Test
+    fun emptyGame_fullGameWithAlwaysGutterSpare_scoreIs100() {
+        for (n in 1..10) {
+            helper.laneThrow(0u)
+            helper.laneThrow(10u)
+        }
+        val response = helper.laneThrow(0u)
+
+        totalScoreIs(response, 100)
+        for (n in 1..10) {
+            frameHasScore(n, response, 10)
+            throwIsMiss(1, n, response)
+            throwIsSpare(2, n, response)
+        }
     }
 }
