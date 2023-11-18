@@ -74,7 +74,7 @@ class AutomatedReadMeCasesTest {
      */
     @Test
     fun emptyGame_playPerfectGame_scoreIs300() {
-        for (i in 1..11) {
+        for (n in 1..11) {
             helper.laneThrow(10u)
         }
         val response = helper.laneThrow(10u)
@@ -137,7 +137,7 @@ class AutomatedReadMeCasesTest {
      */
     @Test
     fun emptyGame_fullGameWithAlways4Pins_totalScoreIs80() {
-        for (i in 1..19) {
+        for (n in 1..19) {
             helper.laneThrow(4u)
         }
         val response = helper.laneThrow(4u)
@@ -153,7 +153,7 @@ class AutomatedReadMeCasesTest {
      */
     @Test
     fun emptyGame_fullGameWithAlways4Pins5PinsTwiceEach_totalScoreIs110() {
-        for (i in 1..5) {
+        for (n in 1..5) {
             helper.laneThrow(5u)
             helper.laneThrow(5u)
             helper.laneThrow(4u)
@@ -173,7 +173,7 @@ class AutomatedReadMeCasesTest {
      */
     @Test
     fun emptyGame_fullGameWithAlwaysStrikesAndGutterFrames_totalScoreIs50() {
-        for (i in 1..5) {
+        for (n in 1..5) {
             helper.laneThrow(10u)
             helper.laneThrow(0u)
             helper.laneThrow(0u)
@@ -188,5 +188,22 @@ class AutomatedReadMeCasesTest {
             throwIsMiss(1, n * 2, response)
             throwIsMiss(2, n * 2, response)
         }
+    }
+
+    /**
+     * test case #10 from ReadMe.md
+     */
+    @Test
+    fun emptyGame_fullGameWithStrikeInLastFrame_lastFrameHasOneBonusThrow() {
+        for (n in 1..18) {
+            helper.laneThrow(1u)
+        }
+        helper.laneThrow(10u)
+        helper.laneThrow(5u)
+        val response = helper.laneThrow(3u)
+
+        totalScoreIs(response, 36)
+        throwIsStrike(1, 10, response)
+        frameHasScore(10, response, 18)
     }
 }
