@@ -77,4 +77,14 @@ class AutomatedReadMeCasesTest {
         throwIsStrike(2, 10, response)
         throwIsStrike(3, 10, response)
     }
+
+    /**
+     * test case #3 from ReadMe.md
+     */
+    @Test
+    fun emptyGame_invalidThrow_isIgnored() {
+        val response = helper.invalidThrow(11u)
+
+        totalScoreIs(response, 0)
+    }
 }
