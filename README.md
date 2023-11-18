@@ -138,16 +138,18 @@
 
 ## Testfall 11
 
-**Beschreibung**: Wechsel zwischen Gutterball und Strike.
+**Beschreibung**: Wechsel zwischen Gutterball und 10 Pins.
 **Vorbedingungen**:
 - Die Applikation wurde gestartet.
 - Die Umgebungsvariablen wurden korrekt gesetzt.
 - Der Spielstand ist im Ursprungszustand (keine Würfe).
 **Schritte**:
-- Abwechselnd einen Gutterball (0 Pins) und einen Strike werfen.
+- Abwechselnd einen Gutterball (0 Pins) und einen Spare (10 Pins) werfen.
 **Erwartetes Ergebnis**:
+- Die Würfe mit 10 Pins werden alle korrekt als Spare (und nicht als Strike) mit einem Slash dargestellt.
 - Nach jedem Gutterball bleibt der Score bei 0.
-- Nach jedem Strike werden die Punkte für den Strike (10) und die folgenden zwei Würfe (hier 0 und 10) addiert.
+- Man kann im letzten Frame drei Würfe machen.
+- Der Score am Ende beträgt 100.
 
 ## Testfall 12
 
