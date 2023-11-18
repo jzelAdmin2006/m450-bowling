@@ -60,12 +60,16 @@ class GameService(val repository: GameRepository) {
         val activeGame = getActive()
         val lastFrame = activeGame?.frames?.lastOrNull()
         val gameIsNotCompleted = activeGame == null || !isCompleted(activeGame)
-        val framePinsHitIsValid = newFrameIsRequired(lastFrame) || lastFrame?.let { frame ->
-            frame.throws.sumOf { it.pinsHit } + pinsHit <= 10u
-        } ?: true
+        val framePinsHitIsValid =
+            newFrameIsRequired(lastFrame) || lastFrame?.frameNumber == 10u && pinsSum(lastFrame) >= 10u ||
+                    lastFrame?.let { frame ->
+                        pinsSum(frame) + pinsHit <= 10u
+                    } ?: true
         val pinsHitIsValid = pinsHit <= 10u
         return gameIsNotCompleted && framePinsHitIsValid && pinsHitIsValid
     }
+
+    private fun pinsSum(frame: Frame) = frame.throws.sumOf { it.pinsHit }
 
     fun reset(game: Game): Game? {
         repository.delete(game)
