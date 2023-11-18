@@ -187,10 +187,10 @@
 - Die Umgebungsvariablen wurden korrekt gesetzt.
 - Der Spielstand ist im Ursprungszustand (keine Würfe).
 **Schritte**:
-- Zwei Strikes in Folge werfen, gefolgt von einem normalen Wurf (4, 2).
+- Zwei Strikes in Folge werfen, gefolgt von einem normalen Frame (4, 2).
 **Erwartetes Ergebnis**:
 - Jeder Strike zählt 10 Punkte plus die Punkte der nächsten zwei Würfe.
-- Der Score nach den Strikes und dem normalen Wurf wird entsprechend berechnet.
+- Der Score nach den Strikes und dem normalen Wurf wird entsprechend berechnet (insgesamt unmittelbar 46).
 
 ## Testfall 15
 
