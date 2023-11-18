@@ -131,4 +131,20 @@ class AutomatedReadMeCasesTest {
         throwIsMiss(1, 1, response)
         throwIsMiss(2, 1, response)
     }
+
+    /**
+     * test case #7 from ReadMe.md
+     */
+    @Test
+    fun emptyGame_fullGameWithAlways4Pins_totalScoreIs80() {
+        for (i in 1..19) {
+            helper.laneThrow(4u)
+        }
+        val response = helper.laneThrow(4u)
+
+        totalScoreIs(response, 80)
+        for (nFrame in 1..10) {
+            frameHasScore(nFrame, response, 8)
+        }
+    }
 }
