@@ -14,7 +14,7 @@ data class FrameEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: UInt,
-    @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER, mappedBy = "frame")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "frame")
     var throws: List<ThrowEntity>,
 ) {
     @ManyToOne

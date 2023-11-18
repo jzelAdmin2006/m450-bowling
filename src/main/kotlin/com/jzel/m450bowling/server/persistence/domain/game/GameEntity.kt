@@ -14,6 +14,6 @@ data class GameEntity(
     @Id
     @GeneratedValue(strategy = IDENTITY)
     val id: UInt,
-    @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER, mappedBy = "game")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "game")
     var frames: List<FrameEntity>,
 )
