@@ -52,10 +52,8 @@ class GameService(val repository: GameRepository) {
                         frame.throws[0].pinsHit + frame.throws[1].pinsHit < 10u || frame.throws.size == 3)
     }
 
-    fun resetActive(): Game? {
-        getActive()?.let {
-            repository.delete(it)
-        }
+    fun reset(game: Game): Game? {
+        repository.delete(game)
         return init()
     }
 

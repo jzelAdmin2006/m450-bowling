@@ -19,9 +19,9 @@ class GameController(val service: GameService) {
             ?: ResponseEntity.noContent().build()
 
     @DeleteMapping
-    fun resetActiveGame(): ResponseEntity<Game> {
-        return ResponseEntity.ok(service.resetActive())
-    }
+    fun resetActiveGame(): ResponseEntity<Game> =
+        service.getActive()?.let { ResponseEntity.ok(service.reset(it)) }
+            ?: ResponseEntity.notFound().build()
 
     @PutMapping
     fun finishActiveGame(): ResponseEntity<Game> =
