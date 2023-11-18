@@ -269,4 +269,19 @@ class AutomatedReadMeCasesTest {
         throwIsSpare(2, 10, response)
         frameHasScore(10, response, 16)
     }
+
+    /**
+     * test case #14 from ReadMe.md
+     */
+    @Test
+    fun emptyGame_fourTwoPinsAfterDoubleStrike_scoreIs46() {
+        helper.laneThrow(10u)
+        helper.laneThrow(10u)
+        helper.laneThrow(4u)
+        val response = helper.laneThrow(2u)
+
+        totalScoreIs(response, 46)
+        frameHasScore(1, response, 24)
+        frameHasScore(2, response, 16)
+    }
 }
