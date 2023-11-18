@@ -42,6 +42,10 @@ class GameService(val repository: GameRepository) {
         return game
     }
 
+    fun isCompleted(game: Game): Boolean {
+        return game.frames.size == 10 && isCompleted(game.frames.last())
+    }
+
     private fun isCompleted(frame: Frame): Boolean {
         return frame.throws.isNotEmpty() && (frame.throws.size == 2 || frame.throws[0].pinsHit == 10u) &&
                 (frame.frameNumber != 10u || frame.throws.size == 2 &&
@@ -63,7 +67,7 @@ class GameService(val repository: GameRepository) {
         return activeGame
     }
 
-    private fun init(): Game {
+    fun init(): Game {
         var newGame = Game(
             createDate = Date(),
             frames = mutableListOf()
