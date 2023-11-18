@@ -1,8 +1,7 @@
-package automated_readme_tests
+package com.jzel.m450bowling.server
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
-import com.jzel.m450bowling.server.M450BowlingApplication
 import com.jzel.m450bowling.server.persistence.domain.game.GamePersistence
 import com.jzel.m450bowling.server.webservice.adapter.rest.GameThrowController
 import jakarta.transaction.Transactional
@@ -29,7 +28,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders
     classes = [M450BowlingApplication::class, GameThrowController::class, GamePersistence::class]
 )
 @Transactional
-class EmptyDBReadMeCasesTest {
+class AutomatedReadMeCasesTest {
     private lateinit var mvc: MockMvc
 
     @Autowired
@@ -45,7 +44,9 @@ class EmptyDBReadMeCasesTest {
         mvc = MockMvcBuilders.standaloneSetup(controller).build()
     }
 
-    // Testfall 1
+    /**
+     * test case #1 from ReadMe.md
+     */
     @Test
     fun emptyGame_strikeWithAdditionalThrows_scoreOfStrikeFrameIsCumulated() {
         val response = mvc.perform(MockMvcRequestBuilders.post("/throw/10").accept(MediaType.APPLICATION_JSON))
