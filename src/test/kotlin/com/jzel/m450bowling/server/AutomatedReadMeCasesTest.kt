@@ -143,8 +143,28 @@ class AutomatedReadMeCasesTest {
         val response = helper.laneThrow(4u)
 
         totalScoreIs(response, 80)
-        for (nFrame in 1..10) {
-            frameHasScore(nFrame, response, 8)
+        for (n in 1..10) {
+            frameHasScore(n, response, 8)
+        }
+    }
+
+    /**
+     * test case #8 from ReadMe.md
+     */
+    @Test
+    fun emptyGame_fullGameWithAlways4Pins5PinsTwiceEach_totalScoreIs110() {
+        for (i in 1..5) {
+            helper.laneThrow(5u)
+            helper.laneThrow(5u)
+            helper.laneThrow(4u)
+            helper.laneThrow(4u)
+        }
+        val response = helper.activeGame()
+
+        totalScoreIs(response, 110)
+        for (n in 1..5) {
+            frameHasScore(n * 2 - 1, response, 14)
+            frameHasScore(n * 2, response, 8)
         }
     }
 }
