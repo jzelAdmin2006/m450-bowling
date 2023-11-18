@@ -2,6 +2,7 @@ package com.jzel.m450bowling.server
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.jzel.m450bowling.server.persistence.domain.game.GamePersistence
+import com.jzel.m450bowling.server.webservice.adapter.rest.GameController
 import com.jzel.m450bowling.server.webservice.adapter.rest.GameThrowController
 import jakarta.transaction.Transactional
 import org.junit.jupiter.api.BeforeEach
@@ -20,7 +21,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders
 @TestInstance(Lifecycle.PER_CLASS)
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-    classes = [M450BowlingApplication::class, GameThrowController::class, GamePersistence::class]
+    classes = [
+        M450BowlingApplication::class,
+        GameController::class,
+        GameThrowController::class,
+        GamePersistence::class
+    ]
 )
 @Transactional
 class AutomatedReadMeCasesTest {
@@ -29,7 +35,10 @@ class AutomatedReadMeCasesTest {
     private lateinit var helper: TestHelper
 
     @Autowired
-    private lateinit var controller: GameThrowController
+    private lateinit var gameController: GameController
+
+    @Autowired
+    private lateinit var throwController: GameThrowController
 
     @Autowired
     private lateinit var persistence: GamePersistence
@@ -38,7 +47,7 @@ class AutomatedReadMeCasesTest {
     fun init() {
         persistence.deleteAll()
         JacksonTester.initFields(this, ObjectMapper())
-        mvc = MockMvcBuilders.standaloneSetup(controller).build()
+        mvc = MockMvcBuilders.standaloneSetup(gameController, throwController).build()
         helper = TestHelper(mvc)
     }
 
@@ -82,9 +91,31 @@ class AutomatedReadMeCasesTest {
      * test case #3 from ReadMe.md
      */
     @Test
-    fun emptyGame_invalidThrow_isIgnored() {
-        val response = helper.invalidThrow(11u)
+    fun emptyGame_invalidThrowTooManyPins_isIgnored() {
+        val response = helper.invalidThrow(11)
 
         totalScoreIs(response, 0)
+    }
+
+    /**
+     * test case #4 from ReadMe.md
+     */
+    @Test
+    fun emptyGame_invalidThrowNegativePins_isIgnored() {
+        val response = helper.invalidThrow(-1)
+
+        totalScoreIs(response, 0)
+    }
+
+    /**
+     * test case #5 from ReadMe.md
+     */
+    @Test
+    fun emptyGame_invalidThrowTooManyPinsInFrame_isIgnored() {
+        helper.laneThrow(5u)
+        helper.invalidThrow(6)
+        val response = helper.activeGame()
+
+        totalScoreIs(response, 5)
     }
 }
