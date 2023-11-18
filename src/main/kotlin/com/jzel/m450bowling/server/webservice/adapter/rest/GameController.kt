@@ -3,8 +3,8 @@ package com.jzel.m450bowling.server.webservice.adapter.rest
 import com.jzel.m450bowling.server.business.domain.Game
 import com.jzel.m450bowling.server.business.service.GameService
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -21,7 +21,7 @@ class GameController(val service: GameService) {
         return ResponseEntity.ok(service.getActive())
     }
 
-    @PutMapping
+    @DeleteMapping
     fun resetActiveGame(): ResponseEntity<Game> {
         return ResponseEntity.ok(service.resetActive())
     }
