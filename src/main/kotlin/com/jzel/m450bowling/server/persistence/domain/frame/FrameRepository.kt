@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service
 
 @Service
 class FrameRepository(
-    val persistence: FramePersistence,
     val mapper: PersistenceMapperService,
-    val throwRepository: ThrowRepository
+    val persistence: FramePersistence,
+    val throwRepository: ThrowRepository,
 ) {
     fun save(frames: List<Frame>, persistedGame: GameEntity): List<FrameEntity> {
         val frameEntities = frames.map { mapper.toEntity(it, persistedGame) }
@@ -23,4 +23,5 @@ class FrameRepository(
         }
         return frameEntities
     }
+
 }

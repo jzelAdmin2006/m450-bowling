@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class ThrowRepository(
-    val persistence: ThrowPersistence,
     val mapper: PersistenceMapperService,
+    val persistence: ThrowPersistence,
 ) {
     fun save(persistedFramesWithThrows: Map<FrameEntity, List<Throw>>): Map<FrameEntity, List<ThrowEntity>> {
         val persistedFramesWithMappedThrows = persistedFramesWithThrows.map { (frameEntity, throws) ->
@@ -22,4 +22,5 @@ class ThrowRepository(
             }
         return result
     }
+
 }

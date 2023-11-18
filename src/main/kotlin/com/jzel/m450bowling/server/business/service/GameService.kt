@@ -9,12 +9,26 @@ import java.util.*
 
 @Service
 class GameService(val repository: GameRepository) {
+
+    fun getActive(): Game? {
+        return repository.findAll().maxByOrNull { it.createDate }
+    }
+
     fun getPersistedGames(): List<Game> {
         return repository.findAll().sortedBy { it.createDate }.dropLast(1)
     }
 
-    fun getActive(): Game? {
-        return repository.findAll().maxByOrNull { it.createDate }
+    fun init(): Game {
+        return repository.save(
+            Game(
+                createDate = Date(),
+                frames = mutableListOf()
+            )
+        )
+    }
+
+    fun isCompleted(game: Game): Boolean {
+        return game.frames.size == 10 && isCompleted(game.frames.last())
     }
 
     fun laneThrow(pinsHit: UInt): Game? {
@@ -42,16 +56,6 @@ class GameService(val repository: GameRepository) {
         return game
     }
 
-    fun isCompleted(game: Game): Boolean {
-        return game.frames.size == 10 && isCompleted(game.frames.last())
-    }
-
-    private fun isCompleted(frame: Frame): Boolean {
-        return frame.throws.isNotEmpty() && (frame.throws.size == 2 || frame.throws[0].pinsHit == 10u) &&
-                (frame.frameNumber != 10u || frame.throws.size == 2 &&
-                        frame.throws[0].pinsHit + frame.throws[1].pinsHit < 10u || frame.throws.size == 3)
-    }
-
     fun reset(game: Game): Game? {
         repository.delete(game)
         return init()
@@ -59,12 +63,10 @@ class GameService(val repository: GameRepository) {
 
     private fun getActiveOrInit(): Game = getActive() ?: init()
 
-    fun init(): Game {
-        return repository.save(
-            Game(
-                createDate = Date(),
-                frames = mutableListOf()
-            )
-        )
+    private fun isCompleted(frame: Frame): Boolean {
+        return frame.throws.isNotEmpty() && (frame.throws.size == 2 || frame.throws[0].pinsHit == 10u) &&
+                (frame.frameNumber != 10u || frame.throws.size == 2 &&
+                        frame.throws[0].pinsHit + frame.throws[1].pinsHit < 10u || frame.throws.size == 3)
     }
+
 }

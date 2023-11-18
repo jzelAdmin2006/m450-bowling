@@ -7,10 +7,13 @@ import org.springframework.stereotype.Service
 
 @Service
 class GameRepository(
-    val persistence: GamePersistence,
+    val frameRepository: FrameRepository,
     val mapper: PersistenceMapperService,
-    val frameRepository: FrameRepository
+    val persistence: GamePersistence,
 ) {
+
+    fun delete(game: Game) = persistence.delete(mapper.toEntity(game))
+
     fun findAll(): List<Game> {
         return persistence.findAll().map { mapper.fromEntity(it) }
     }
@@ -22,5 +25,4 @@ class GameRepository(
         return mapper.fromEntity(gameEntity)
     }
 
-    fun delete(game: Game) = persistence.delete(mapper.toEntity(game))
 }

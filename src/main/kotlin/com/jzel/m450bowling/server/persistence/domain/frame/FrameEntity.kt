@@ -8,18 +8,17 @@ import org.jetbrains.annotations.NotNull
 @Entity
 @Table(name = "frame")
 data class FrameEntity(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: UInt,
-
     @NotNull
     @Column(unique = true)
     val frameNumber: UInt,
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: UInt,
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER, mappedBy = "frame")
-    var throws: List<ThrowEntity>
+    var throws: List<ThrowEntity>,
 ) {
     @ManyToOne
     @NotNull
     lateinit var game: GameEntity
+
 }

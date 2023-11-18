@@ -9,13 +9,11 @@ import java.util.*
 @Entity
 @Table(name = "game")
 data class GameEntity(
+    @NotNull
+    val createDate: Date,
     @Id
     @GeneratedValue(strategy = IDENTITY)
     val id: UInt,
-
-    @NotNull
-    val createDate: Date,
-
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER, mappedBy = "game")
-    var frames: List<FrameEntity>
+    var frames: List<FrameEntity>,
 )

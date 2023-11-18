@@ -15,4 +15,5 @@ class GameThrowController(val service: GameService) {
     fun laneThrow(@PathVariable pinsHit: UInt): ResponseEntity<Game> {
         return ResponseEntity.ok(service.laneThrow(pinsHit))
     }
+
 }

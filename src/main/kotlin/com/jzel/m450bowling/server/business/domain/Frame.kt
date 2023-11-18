@@ -7,19 +7,21 @@ import com.jzel.m450bowling.server.business.domain.lane_throw.ThrowDisplay.*
 
 open class Frame(
     val frameNumber: UInt,
+    private val _id: UInt? = null,
     private val _throws: MutableList<Throw>,
     private val followingFrame: Frame? = null,
-    private val _id: UInt? = null
 ) {
-    fun idValue() = _id ?: UInt.MIN_VALUE
+
+    val score: UInt
+        get() = _throws.sumOf { it.pinsHit } + bonusScore()
 
     val throws: List<Throw>
         get() = _throws.map {
             CustomDisplayedThrow(
-                customThrowDisplay(it),
+                it.idValue(),
                 it.throwNumber,
                 it.pinsHit,
-                it.idValue()
+                customThrowDisplay(it)
             )
         }
 
@@ -27,28 +29,7 @@ open class Frame(
         _throws.add(laneThrow)
     }
 
-    private fun customThrowDisplay(it: Throw): ThrowDisplay {
-        return if (it.pinsHit == 0u) {
-            MISS
-        } else if (isStrike(it)) {
-            STRIKE
-        } else if (isSpare(it)) {
-            SPARE
-        } else {
-            ThrowDisplay.fromPinsHit(it.pinsHit)
-        }
-    }
-
-    private fun isStrike(laneThrow: Throw?): Boolean =
-        laneThrow?.pinsHit == 10u && (laneThrow.throwNumber == 1u || laneThrow.throwNumber == 3u || frameNumber == 10u && isStrike(
-            _throws[0]
-        ))
-
-    private fun isSpare(laneThrow: Throw?) =
-        laneThrow?.throwNumber == 2u && _throws[0].pinsHit + laneThrow.pinsHit == 10u
-
-    val score: UInt
-        get() = _throws.sumOf { it.pinsHit } + bonusScore()
+    fun idValue() = _id ?: UInt.MIN_VALUE
 
     private fun bonusScore(): UInt {
         return when {
@@ -69,4 +50,25 @@ open class Frame(
             else -> 0u
         }
     }
+
+    private fun customThrowDisplay(it: Throw): ThrowDisplay {
+        return if (it.pinsHit == 0u) {
+            MISS
+        } else if (isStrike(it)) {
+            STRIKE
+        } else if (isSpare(it)) {
+            SPARE
+        } else {
+            ThrowDisplay.fromPinsHit(it.pinsHit)
+        }
+    }
+
+    private fun isSpare(laneThrow: Throw?) =
+        laneThrow?.throwNumber == 2u && _throws[0].pinsHit + laneThrow.pinsHit == 10u
+
+    private fun isStrike(laneThrow: Throw?): Boolean =
+        laneThrow?.pinsHit == 10u && (laneThrow.throwNumber == 1u || laneThrow.throwNumber == 3u || frameNumber == 10u && isStrike(
+            _throws[0]
+        ))
+
 }

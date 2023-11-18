@@ -8,20 +8,6 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/game")
 class GameController(val service: GameService) {
-    @GetMapping
-    fun getGames(): ResponseEntity<List<Game>> {
-        return ResponseEntity.ok(service.getPersistedGames())
-    }
-
-    @GetMapping("/active")
-    fun getActiveGame(): ResponseEntity<Game> =
-        service.getActive()?.let { ResponseEntity.ok(it) }
-            ?: ResponseEntity.noContent().build()
-
-    @DeleteMapping
-    fun resetActiveGame(): ResponseEntity<Game> =
-        service.getActive()?.let { ResponseEntity.ok(service.reset(it)) }
-            ?: ResponseEntity.notFound().build()
 
     @PutMapping
     fun finishActiveGame(): ResponseEntity<Game> =
@@ -33,4 +19,20 @@ class GameController(val service: GameService) {
                 ResponseEntity.badRequest().build()
             }
         } ?: ResponseEntity.notFound().build()
+
+    @GetMapping("/active")
+    fun getActiveGame(): ResponseEntity<Game> =
+        service.getActive()?.let { ResponseEntity.ok(it) }
+            ?: ResponseEntity.noContent().build()
+
+    @GetMapping
+    fun getGames(): ResponseEntity<List<Game>> {
+        return ResponseEntity.ok(service.getPersistedGames())
+    }
+
+    @DeleteMapping
+    fun resetActiveGame(): ResponseEntity<Game> =
+        service.getActive()?.let { ResponseEntity.ok(service.reset(it)) }
+            ?: ResponseEntity.notFound().build()
+
 }

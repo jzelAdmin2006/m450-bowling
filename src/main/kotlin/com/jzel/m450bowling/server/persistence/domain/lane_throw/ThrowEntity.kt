@@ -10,15 +10,14 @@ data class ThrowEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: UInt,
-
+    @NotNull
+    val pinsHit: UInt,
     @NotNull
     @Column(unique = true)
     val throwNumber: UInt,
-
-    @NotNull
-    val pinsHit: UInt
 ) {
     @ManyToOne
     @NotNull
     lateinit var frame: FrameEntity
+
 }
