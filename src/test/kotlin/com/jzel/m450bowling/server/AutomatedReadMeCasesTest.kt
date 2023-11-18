@@ -341,4 +341,22 @@ class AutomatedReadMeCasesTest {
         gameHasFrames(response, 10)
         gameHasFrames(activeGameResponse, 0)
     }
+
+    /**
+     * test case #18 from ReadMe.md
+     */
+    @Test
+    fun elevenStrikesThrown_endGameTooEarly_isIgnored() {
+        for (n in 1..11) {
+            helper.laneThrow(10u)
+        }
+        helper.endGameTooEarly()
+
+        val gamesResponse = helper.getGames()
+        val activeGameResponse = helper.activeGame()
+
+        gameHasFrames(activeGameResponse, 10)
+        hasPersistedGamesCount(0, gamesResponse)
+        totalScoreIs(activeGameResponse, 290)
+    }
 }

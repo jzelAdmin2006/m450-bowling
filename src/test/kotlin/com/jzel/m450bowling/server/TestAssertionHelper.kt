@@ -4,6 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import org.junit.jupiter.api.Assertions
 
+fun hasPersistedGamesCount(n: Int, gamesAsJson: String) {
+    Assertions.assertEquals(
+        n, ObjectMapper().registerKotlinModule().readTree(gamesAsJson).size()
+    )
+}
+
 fun nthGame(n: Int, gamesAsJson: String) =
     ObjectMapper().registerKotlinModule().readTree(gamesAsJson)[n - 1].toString()
 

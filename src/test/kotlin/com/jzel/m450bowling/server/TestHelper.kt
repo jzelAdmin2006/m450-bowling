@@ -20,8 +20,14 @@ class TestHelper(private val mvc: MockMvc) {
         get("/game/active")
 
     fun endGame(): String =
+        performEnding(MockMvcResultMatchers.status().isOk)
+
+    fun endGameTooEarly(): String =
+        performEnding(MockMvcResultMatchers.status().isBadRequest)
+
+    private fun performEnding(result: ResultMatcher) =
         mvc.perform(MockMvcRequestBuilders.put("/game").accept(MediaType.APPLICATION_JSON))
-            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(result)
             .andReturn().response.contentAsString
 
     fun getGames(): String =
