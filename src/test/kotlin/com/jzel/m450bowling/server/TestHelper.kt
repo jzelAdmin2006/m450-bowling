@@ -17,7 +17,18 @@ class TestHelper(private val mvc: MockMvc) {
             .andReturn().response.contentAsString
 
     fun activeGame(): String =
-        mvc.perform(MockMvcRequestBuilders.get("/game/active").accept(MediaType.APPLICATION_JSON))
+        get("/game/active")
+
+    fun endGame(): String =
+        mvc.perform(MockMvcRequestBuilders.put("/game").accept(MediaType.APPLICATION_JSON))
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andReturn().response.contentAsString
+
+    fun getGames(): String =
+        get("/game")
+
+    private fun get(endpoint: String) =
+        mvc.perform(MockMvcRequestBuilders.get(endpoint).accept(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andReturn().response.contentAsString
 }

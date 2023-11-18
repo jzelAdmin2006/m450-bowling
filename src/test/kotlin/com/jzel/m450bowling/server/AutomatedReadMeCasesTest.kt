@@ -295,4 +295,31 @@ class AutomatedReadMeCasesTest {
 
         totalScoreIs(response, 0)
     }
+
+    /**
+     * test case #16 from ReadMe.md
+     */
+    @Test
+    fun gutterAndPerfectGameArePersisted_getPersistedGames_gamesAreShownCorrectly() {
+        for (n in 1..12) {
+            helper.laneThrow(10u)
+        }
+        helper.endGame()
+        for (n in 1..20) {
+            helper.laneThrow(0u)
+        }
+        helper.endGame()
+
+        val response = helper.getGames()
+        val perfectGame = nthGame(1, response)
+        val gutterGame = nthGame(2, response)
+
+        totalScoreIs(perfectGame, 300)
+        totalScoreIs(gutterGame, 0)
+        for (n in 1..10) {
+            isStrikeFrame(n, perfectGame)
+            throwIsMiss(1, n, gutterGame)
+            throwIsMiss(2, n, gutterGame)
+        }
+    }
 }

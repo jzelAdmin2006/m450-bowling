@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import org.junit.jupiter.api.Assertions
 
+fun nthGame(n: Int, gamesAsJson: String) =
+    ObjectMapper().registerKotlinModule().readTree(gamesAsJson)[n - 1].toString()
+
 fun totalScoreIs(gameAsJson: String, expectedScore: Int) {
     Assertions.assertEquals(
         expectedScore, ObjectMapper().registerKotlinModule().readTree(gameAsJson)
