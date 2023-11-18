@@ -243,7 +243,7 @@
 **Schritte**:
 - Man ruft den Befehl zum Beenden auf.
 **Erwartetes Ergebnis**:
-- Man bekommt einen Fehler, dass das Spiel fertig sein muss, damit man es beenden kann.
+- Man bekommt einen Fehler, dass das Spiel fertig sein muss, damit man es beenden kann (bzw. HTTP-Status 400).
 - Das Spiel wurde noch nicht persistiert und ist in der Liste der persistierten Spiele nicht zu sehen.
 - Der Spielstand ist immer noch derselbe.
 
