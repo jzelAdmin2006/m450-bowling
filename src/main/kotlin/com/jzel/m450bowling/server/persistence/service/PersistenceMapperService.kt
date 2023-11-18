@@ -50,8 +50,8 @@ class PersistenceMapperService {
     }
 
     private fun fromEntity(entity: ThrowEntity) = Throw(
-        entity.throwNumber,
         entity.pinsHit,
+        entity.throwNumber,
         entity.id
     )
 
