@@ -32,8 +32,8 @@ class PersistenceMapperService {
     fun toEntity(laneThrow: Throw, frame: FrameEntity): ThrowEntity {
         val throwEntity = ThrowEntity(
             laneThrow.idValue(),
-            laneThrow.throwNumber,
-            laneThrow.pinsHit
+            laneThrow.pinsHit,
+            laneThrow.throwNumber
         )
         throwEntity.frame = frame
         return throwEntity
