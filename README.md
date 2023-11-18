@@ -102,11 +102,11 @@
 - Die Umgebungsvariablen wurden korrekt gesetzt.
 - Der Spielstand ist im Ursprungszustand (keine Würfe).
 **Schritte**:
-- Abwechselnd einen Spare und einen normalen Wurf (4, 4) machen.
+- Abwechselnd einen Spare und ein normales Frame (4, 4) machen.
 **Erwartetes Ergebnis**:
 - Bei jedem Spare wird der Score des nächsten Wurfs zum Score des Spares hinzugerechnet.
 - Bei den normalen Würfen werden die Punkte normal gezählt.
-- Der Gesamtscore ergibt sich aus der Summe aller Frames.
+- Der Gesamtscore ergibt sich aus der Summe aller Frames (110).
 
 ## Testfall 9
 
