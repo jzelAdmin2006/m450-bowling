@@ -31,7 +31,6 @@
 **Erwartetes Ergebnis**:
 - Es werden die 12 Strikes mit 12 X dargestellt (9 davon jeweils im ersten Wurf der ersten 9 Frames, die letzten 3 im letzten Frame).
 - Man hat am Schluss 300 Punkte.
-- Es kommt bei einem weiteren Schuss eine entsprechende Meldung, dass das Spiel fertig ist und man wieder ein neues starten muss.
 
 ## Testfall 3
 
@@ -43,7 +42,7 @@
 **Schritte**:
 - Versuchen, 11 Pins in einem Wurf zu werfen.
 **Erwartetes Ergebnis**:
-- Es erscheint eine Fehlermeldung, dass man nicht mehr als 10 Pins in einem Wurf werfen kann.
+- Es erscheint eine Fehlermeldung, dass man nicht mehr als 10 Pins in einem Wurf werfen kann (bzw. HTTP-Status 400).
 
 ## Testfall 4
 
@@ -55,7 +54,7 @@
 **Schritte**:
 - Versuchen, -1 Pin in einem Wurf zu werfen.
 **Erwartetes Ergebnis**:
-- Es erscheint eine Fehlermeldung, dass die Anzahl der Pins nicht negativ sein kann.
+- Es erscheint eine Fehlermeldung, dass die Anzahl der Pins nicht negativ sein kann (bzw. HTTP-Status 400).
 
 ## Testfall 5
 
@@ -67,7 +66,7 @@
 **Schritte**:
 - Im ersten Wurf 6 Pins, im zweiten Wurf 5 Pins.
 **Erwartetes Ergebnis**:
-- Es erscheint eine Fehlermeldung, dass die Summe der Pins in einem Frame nicht mehr als 10 sein kann.
+- Es erscheint eine Fehlermeldung, dass die Summe der Pins in einem Frame nicht mehr als 10 sein kann (bzw. HTTP-Status 400).
 
 ## Testfall 6
 
@@ -201,7 +200,7 @@
 **Schritte**:
 - Versuchen, einen Wurf mit einer nicht-numerischen Eingabe (z.B. "a") zu machen.
 **Erwartetes Ergebnis**:
-- Es erscheint eine Fehlermeldung, dass nur numerische Eingaben gültig sind.
+- Es erscheint eine Fehlermeldung, dass nur numerische Eingaben gültig sind (bzw. HTTP-Status 400).
 
 ## Testfall 16
 
@@ -228,7 +227,7 @@
 **Schritte**:
 - Man ruft den Befehl zum Beenden auf.
 **Erwartetes Ergebnis**:
-- Es gibt eine Meldung, dass das Spiel beendet wurde.
+- Es gibt eine Meldung, dass das Spiel beendet wurde (bzw. HTTP-Status 200).
 - Das Spiel wurde persistiert und ist in der Liste der persistierten Spiele zu sehen.
 - Der Spielstand ist wieder im Ursprungszustand (keine Würfe).
 
@@ -256,7 +255,7 @@
 **Schritte**:
 - Man ruft den Befehl zum Zurücksetzen auf.
 **Erwartetes Ergebnis**:
-- Es gibt eine Meldung, dass der Spielstand zurückgesetzt wurde.
+- Es gibt eine Meldung, dass der Spielstand zurückgesetzt wurde (bzw. HTTP-Status 200).
 - Das Spiel wurde nicht persistiert und ist nicht in der Liste der persistierten Spiele zu sehen.
 - Der Spielstand ist wieder im Ursprungszustand (keine Würfe).
 
@@ -270,5 +269,5 @@
 **Schritte**:
 - Man ruft den Befehl zum Zurücksetzen auf.
 **Erwartetes Ergebnis**:
-- Es gibt eine Meldung, dass der Spielstand zurückgesetzt wurde.
+- Es gibt eine Meldung, dass der Spielstand zurückgesetzt wurde (bzw. HTTP-Status 200).
 - Der Spielstand ist wieder im Ursprungszustand (keine Würfe).
