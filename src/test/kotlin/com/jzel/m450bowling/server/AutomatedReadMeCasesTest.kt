@@ -167,4 +167,26 @@ class AutomatedReadMeCasesTest {
             frameHasScore(n * 2, response, 8)
         }
     }
+
+    /**
+     * test case #9 from ReadMe.md
+     */
+    @Test
+    fun emptyGame_fullGameWithAlwaysStrikesAndGutterFrames_totalScoreIs50() {
+        for (i in 1..5) {
+            helper.laneThrow(10u)
+            helper.laneThrow(0u)
+            helper.laneThrow(0u)
+        }
+        val response = helper.activeGame()
+
+        totalScoreIs(response, 50)
+        for (n in 1..5) {
+            frameHasScore(n * 2 - 1, response, 10)
+            isStrikeFrame(n * 2 - 1, response)
+            frameHasScore(n * 2, response, 0)
+            throwIsMiss(1, n * 2, response)
+            throwIsMiss(2, n * 2, response)
+        }
+    }
 }
