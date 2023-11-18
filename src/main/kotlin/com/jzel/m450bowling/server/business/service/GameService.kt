@@ -79,7 +79,7 @@ class GameService(val repository: GameRepository) {
     private fun getActiveOrInit(): Game = getActive() ?: init()
 
     private fun isCompleted(frame: Frame): Boolean {
-        return frame.throws.isNotEmpty() && (frame.throws.size == 2 || frame.throws[0].pinsHit == 10u) &&
+        return frame.throws.isNotEmpty() && (frame.throws.size >= 2 || frame.throws[0].pinsHit == 10u) &&
                 (frame.frameNumber != 10u || frame.throws.size == 2 &&
                         frame.throws[0].pinsHit + frame.throws[1].pinsHit < 10u || frame.throws.size == 3)
     }
