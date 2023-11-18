@@ -23,8 +23,16 @@ fun isStrikeFrame(frameNumber: Int, gameAsJson: String) {
 }
 
 fun throwIsStrike(throwNumber: Int, frameNumber: Int, gameAsJson: String) {
+    throwIsCustomDisplay(gameAsJson, frameNumber, throwNumber, "X")
+}
+
+fun throwIsMiss(throwNumber: Int, frameNumber: Int, gameAsJson: String) {
+    throwIsCustomDisplay(gameAsJson, frameNumber, throwNumber, "-")
+}
+
+private fun throwIsCustomDisplay(gameAsJson: String, frameNumber: Int, throwNumber: Int, display: String) {
     Assertions.assertEquals(
-        "X", ObjectMapper().registerKotlinModule().readTree(gameAsJson)
+        display, ObjectMapper().registerKotlinModule().readTree(gameAsJson)
             .path("frames")[frameNumber - 1].path("throws")[throwNumber - 1]
             .path("display").asText()
     )

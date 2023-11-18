@@ -73,7 +73,7 @@ class AutomatedReadMeCasesTest {
      * test case #2 from ReadMe.md
      */
     @Test
-    fun emptyGame_playPerfectGame_scoreIsCorrect() {
+    fun emptyGame_playPerfectGame_scoreIs300() {
         for (i in 1..11) {
             helper.laneThrow(10u)
         }
@@ -117,5 +117,18 @@ class AutomatedReadMeCasesTest {
         val response = helper.activeGame()
 
         totalScoreIs(response, 5)
+    }
+
+    /**
+     * test case #6 from ReadMe.md
+     */
+    @Test
+    fun emptyGame_doubleGutterBall_scoreIsZero() {
+        helper.laneThrow(0u)
+        val response = helper.laneThrow(0u)
+
+        totalScoreIs(response, 0)
+        throwIsMiss(1, 1, response)
+        throwIsMiss(2, 1, response)
     }
 }
