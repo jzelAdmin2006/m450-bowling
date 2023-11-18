@@ -359,4 +359,22 @@ class AutomatedReadMeCasesTest {
         hasPersistedGamesCount(0, gamesResponse)
         totalScoreIs(activeGameResponse, 290)
     }
+
+    /**
+     * test case #19 from ReadMe.md
+     */
+    @Test
+    fun activeCompletedPerfectGame_resetGame_isBackToOrigin() {
+        for (n in 1..12) {
+            helper.laneThrow(10u)
+        }
+        val response = helper.reset()
+
+        val gamesResponse = helper.getGames()
+        val activeGameResponse = helper.activeGame()
+
+        assertEquals(response, activeGameResponse)
+        gameHasFrames(response, 0)
+        hasPersistedGamesCount(0, gamesResponse)
+    }
 }

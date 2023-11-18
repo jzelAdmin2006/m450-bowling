@@ -37,4 +37,9 @@ class TestHelper(private val mvc: MockMvc) {
         mvc.perform(MockMvcRequestBuilders.get(endpoint).accept(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andReturn().response.contentAsString
+
+    fun reset(): String =
+        mvc.perform(MockMvcRequestBuilders.delete("/game").accept(MediaType.APPLICATION_JSON))
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andReturn().response.contentAsString
 }
