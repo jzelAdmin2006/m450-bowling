@@ -129,7 +129,7 @@
 - Die Umgebungsvariablen wurden korrekt gesetzt.
 - Der Spielstand ist im Ursprungszustand (keine Würfe).
 **Schritte**:
-- Bis zum letzten Frame normal spielen.
+- Bis zum letzten Frame normal spielen (ohne Strike oder Spare).
 - Im letzten Frame einen Strike werfen und dann zwei Bonuswürfe (5 Pins und 3 Pins).
 **Erwartetes Ergebnis**:
 - Der Strike im letzten Frame ermöglicht zwei Bonuswürfe.
