@@ -15,7 +15,12 @@ class GameController(val service: GameService) {
 
     @GetMapping("/active")
     fun getActiveGame(): ResponseEntity<Game> {
-        return ResponseEntity.ok(service.getActive())
+        val activeGame = service.getActive()
+        if (activeGame == null) {
+            return ResponseEntity.noContent().build()
+        } else {
+            return ResponseEntity.ok(activeGame)
+        }
     }
 
     @DeleteMapping
