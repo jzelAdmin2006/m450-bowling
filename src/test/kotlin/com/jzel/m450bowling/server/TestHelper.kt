@@ -7,11 +7,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 
 class TestHelper(private val mvc: MockMvc) {
-    fun laneThrow(pins: UInt) = performThrow(pins.toInt(), MockMvcResultMatchers.status().isOk)
+    fun laneThrow(pins: UInt) = performThrow(pins.toInt().toString(), MockMvcResultMatchers.status().isOk)
+    fun invalidThrow(pins: String) = performThrow(pins, MockMvcResultMatchers.status().isBadRequest)
+    fun invalidThrow(pins: Int) = invalidThrow(pins.toString())
 
-    fun invalidThrow(pins: Int) = performThrow(pins, MockMvcResultMatchers.status().isBadRequest)
-
-    private fun performThrow(pins: Int, statusMatcher: ResultMatcher) =
+    private fun performThrow(pins: String, statusMatcher: ResultMatcher) =
         mvc.perform(MockMvcRequestBuilders.post("/throw/$pins").accept(MediaType.APPLICATION_JSON))
             .andExpect(statusMatcher)
             .andReturn().response.contentAsString

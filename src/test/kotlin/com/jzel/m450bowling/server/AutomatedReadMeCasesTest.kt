@@ -284,4 +284,15 @@ class AutomatedReadMeCasesTest {
         frameHasScore(1, response, 24)
         frameHasScore(2, response, 16)
     }
+
+    /**
+     * test case #15 from ReadMe.md
+     */
+    @Test
+    fun emptyGame_invalidThrowNotNumericInput_isIgnored() {
+        helper.invalidThrow("a")
+        val response = helper.laneThrow(0u)
+
+        totalScoreIs(response, 0)
+    }
 }
