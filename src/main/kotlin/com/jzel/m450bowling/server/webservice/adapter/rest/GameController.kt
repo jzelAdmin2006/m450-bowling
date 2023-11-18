@@ -14,14 +14,9 @@ class GameController(val service: GameService) {
     }
 
     @GetMapping("/active")
-    fun getActiveGame(): ResponseEntity<Game> {
-        val activeGame = service.getActive()
-        if (activeGame == null) {
-            return ResponseEntity.noContent().build()
-        } else {
-            return ResponseEntity.ok(activeGame)
-        }
-    }
+    fun getActiveGame(): ResponseEntity<Game> =
+        service.getActive()?.let { ResponseEntity.ok(it) }
+            ?: ResponseEntity.noContent().build()
 
     @DeleteMapping
     fun resetActiveGame(): ResponseEntity<Game> {
@@ -29,15 +24,13 @@ class GameController(val service: GameService) {
     }
 
     @PutMapping
-    fun finishActiveGame(): ResponseEntity<Game> {
-        val activeGame = service.getActive()
-        if (activeGame == null) {
-            return ResponseEntity.notFound().build()
-        } else if (service.isCompleted(activeGame)) {
-            service.init()
-            return ResponseEntity.ok(activeGame)
-        } else {
-            return ResponseEntity.badRequest().build()
-        }
-    }
+    fun finishActiveGame(): ResponseEntity<Game> =
+        service.getActive()?.let { activeGame ->
+            if (service.isCompleted(activeGame)) {
+                service.init()
+                ResponseEntity.ok(activeGame)
+            } else {
+                ResponseEntity.badRequest().build()
+            }
+        } ?: ResponseEntity.notFound().build()
 }

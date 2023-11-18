@@ -59,19 +59,14 @@ class GameService(val repository: GameRepository) {
         return init()
     }
 
-    private fun getActiveOrInit(): Game {
-        var activeGame = getActive()
-        if (activeGame == null) {
-            activeGame = init()
-        }
-        return activeGame
-    }
+    private fun getActiveOrInit(): Game = getActive() ?: init()
 
     fun init(): Game {
-        var newGame = Game(
-            createDate = Date(),
-            frames = mutableListOf()
+        return repository.save(
+            Game(
+                createDate = Date(),
+                frames = mutableListOf()
+            )
         )
-        return repository.save(newGame)
     }
 }
