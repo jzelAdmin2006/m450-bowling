@@ -13,20 +13,12 @@ class GameService(val repository: GameRepository) {
         return repository.findAll().sortedBy { it.createDate }.dropLast(1)
     }
 
-    fun getActiveGame(): Game? {
+    fun getActive(): Game? {
         return repository.findAll().maxByOrNull { it.createDate }
     }
 
     fun laneThrow(pinsHit: UInt): Game? {
-        var activeGame = getActiveGame()
-        if (activeGame == null) {
-            var newGame = Game(
-                createDate = Date(),
-                frames = mutableListOf()
-            )
-            newGame = repository.save(newGame)
-            activeGame = newGame
-        }
+        var activeGame = getActiveOrInit()
         laneThrow(activeGame, pinsHit)
         activeGame = repository.save(activeGame)
         return activeGame
@@ -54,5 +46,28 @@ class GameService(val repository: GameRepository) {
         return frame.throws.isNotEmpty() && (frame.throws.size == 2 || frame.throws[0].pinsHit == 10u) &&
                 (frame.frameNumber != 10u || frame.throws.size == 2 &&
                         frame.throws[0].pinsHit + frame.throws[1].pinsHit < 10u || frame.throws.size == 3)
+    }
+
+    fun resetActive(): Game? {
+        getActive()?.let {
+            repository.delete(it)
+        }
+        return init()
+    }
+
+    private fun getActiveOrInit(): Game {
+        var activeGame = getActive()
+        if (activeGame == null) {
+            activeGame = init()
+        }
+        return activeGame
+    }
+
+    private fun init(): Game {
+        var newGame = Game(
+            createDate = Date(),
+            frames = mutableListOf()
+        )
+        return repository.save(newGame)
     }
 }

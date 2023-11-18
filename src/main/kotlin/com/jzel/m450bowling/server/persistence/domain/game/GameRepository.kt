@@ -21,4 +21,6 @@ class GameRepository(
         gameEntity.frames = frameRepository.save(game.frames, gameEntity)
         return mapper.fromEntity(gameEntity)
     }
+
+    fun delete(game: Game) = persistence.delete(mapper.toEntity(game))
 }
