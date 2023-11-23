@@ -2,7 +2,8 @@
 
 Diese Testfälle wurden für dieses Projekt automatisiert. Es handelt sich dabei nicht um klassische Unit-Tests, sondern der Fokus lag in der Automatisierung von vorher manuellen Tests mit der möglichst gleich hohen Aussagekraft. Daher sind diese eher Integrationstests bzw. fast schon Systemtests.
 
-## Testfall 1
+## Testfälle
+### Testfall 1
 
 **Beschreibung**: Man macht einen Strike im ersten Frame, der Einfluss auf die Punkte der nächsten Würfe hat.
 **Vorbedingungen**:
@@ -20,7 +21,7 @@ Diese Testfälle wurden für dieses Projekt automatisiert. Es handelt sich dabei
 - Für den ersten Frame bekommt man am Ende 18 Punkte, für den zweiten bekommt man 8.
 - Der totale Score beträgt am Ende 26.
 
-## Testfall 2
+### Testfall 2
 
 **Beschreibung**: Man wirft das ganze Spiel nur Strikes.
 **Vorbedingungen**:
@@ -34,7 +35,7 @@ Diese Testfälle wurden für dieses Projekt automatisiert. Es handelt sich dabei
 - Es werden die 12 Strikes mit 12 X dargestellt (9 davon jeweils im ersten Wurf der ersten 9 Frames, die letzten 3 im letzten Frame).
 - Man hat am Schluss 300 Punkte.
 
-## Testfall 3
+### Testfall 3
 
 **Beschreibung**: Ungültiger Wurf mit mehr als 10 Pins.
 **Vorbedingungen**:
@@ -46,7 +47,7 @@ Diese Testfälle wurden für dieses Projekt automatisiert. Es handelt sich dabei
 **Erwartetes Ergebnis**:
 - Es erscheint eine Fehlermeldung, dass man nicht mehr als 10 Pins in einem Wurf werfen kann (bzw. HTTP-Status 400).
 
-## Testfall 4
+### Testfall 4
 
 **Beschreibung**: Ungültiger Wurf mit negativer Anzahl an Pins.
 **Vorbedingungen**:
@@ -58,7 +59,7 @@ Diese Testfälle wurden für dieses Projekt automatisiert. Es handelt sich dabei
 **Erwartetes Ergebnis**:
 - Es erscheint eine Fehlermeldung, dass die Anzahl der Pins nicht negativ sein kann (bzw. HTTP-Status 400).
 
-## Testfall 5
+### Testfall 5
 
 **Beschreibung**: Ungültige Summe der Pins in zwei Würfen eines Frames.
 **Vorbedingungen**:
@@ -70,7 +71,7 @@ Diese Testfälle wurden für dieses Projekt automatisiert. Es handelt sich dabei
 **Erwartetes Ergebnis**:
 - Es erscheint eine Fehlermeldung, dass die Summe der Pins in einem Frame nicht mehr als 10 sein kann (bzw. HTTP-Status 400).
 
-## Testfall 6
+### Testfall 6
 
 **Beschreibung**: Zwei Gutterballs in einem Frame.
 **Vorbedingungen**:
@@ -83,7 +84,7 @@ Diese Testfälle wurden für dieses Projekt automatisiert. Es handelt sich dabei
 - Es wird zweimal angezeigt, dass 0 Pins getroffen wurden.
 - Der Score für diesen Frame bleibt bei 0.
 
-## Testfall 7
+### Testfall 7
 
 **Beschreibung**: Vollständiges Spiel ohne Strikes oder Spares.
 **Vorbedingungen**:
@@ -96,7 +97,7 @@ Diese Testfälle wurden für dieses Projekt automatisiert. Es handelt sich dabei
 - In jedem Frame wird ein Score von 8 (4+4) angezeigt.
 - Der Gesamtscore am Ende des Spiels ist 80.
 
-## Testfall 8
+### Testfall 8
 
 **Beschreibung**: Spiel mit wechselnden Spares und normalen Würfen.
 **Vorbedingungen**:
@@ -110,7 +111,7 @@ Diese Testfälle wurden für dieses Projekt automatisiert. Es handelt sich dabei
 - Bei den normalen Würfen werden die Punkte normal gezählt.
 - Der Gesamtscore ergibt sich aus der Summe aller Frames (110).
 
-## Testfall 9
+### Testfall 9
 
 **Beschreibung**: Spiel mit abwechselnden Strikes und Gutterballs.
 **Vorbedingungen**:
@@ -123,7 +124,7 @@ Diese Testfälle wurden für dieses Projekt automatisiert. Es handelt sich dabei
 - Nach jedem Strike werden die Punkte der nächsten zwei Würfe hinzugefügt (in diesem Fall 0).
 - Die Gesamtpunktzahl berechnet sich aus der Summe aller Frames (50).
 
-## Testfall 10
+### Testfall 10
 
 **Beschreibung**: Spiel mit einem Strike im letzten Frame und Bonuswürfen.
 **Vorbedingungen**:
@@ -138,7 +139,7 @@ Diese Testfälle wurden für dieses Projekt automatisiert. Es handelt sich dabei
 - Der Score für den letzten Frame beträgt 18 (10 + 5 + 3).
 - Die Gesamtpunktzahl berechnet sich aus der Summe aller Frames inklusive der Bonuswürfe.
 
-## Testfall 11
+### Testfall 11
 
 **Beschreibung**: Wechsel zwischen Gutterball und 10 Pins.
 **Vorbedingungen**:
@@ -153,7 +154,7 @@ Diese Testfälle wurden für dieses Projekt automatisiert. Es handelt sich dabei
 - Man kann im letzten Frame drei Würfe machen.
 - Der Score am Ende beträgt 100.
 
-## Testfall 12
+### Testfall 12
 
 **Beschreibung**: Durchgehend Spares werfen.
 **Vorbedingungen**:
@@ -166,7 +167,7 @@ Diese Testfälle wurden für dieses Projekt automatisiert. Es handelt sich dabei
 - Jeder Spare zeigt die Summe von 10 plus die Punkte des nächsten Wurfes.
 - Der Gesamtscore wird entsprechend berechnet.
 
-## Testfall 13
+### Testfall 13
 
 **Beschreibung**: Spiel mit einem Spare im letzten Frame und einem Bonuswurf.
 **Vorbedingungen**:
@@ -181,7 +182,7 @@ Diese Testfälle wurden für dieses Projekt automatisiert. Es handelt sich dabei
 - Der Score für den letzten Frame beträgt 16 (10 + 6).
 - Die Gesamtpunktzahl berechnet sich aus der Summe aller Frames.
 
-## Testfall 14
+### Testfall 14
 
 **Beschreibung**: Spiel mit zwei Strikes in Folge und einem normalen Wurf.
 **Vorbedingungen**:
@@ -194,7 +195,7 @@ Diese Testfälle wurden für dieses Projekt automatisiert. Es handelt sich dabei
 - Jeder Strike zählt 10 Punkte plus die Punkte der nächsten zwei Würfe.
 - Der Score nach den Strikes und dem normalen Wurf wird entsprechend berechnet (insgesamt unmittelbar 46).
 
-## Testfall 15
+### Testfall 15
 
 **Beschreibung**: Ungültiger Wurf mit nicht-numerischer Eingabe.
 **Vorbedingungen**:
@@ -206,7 +207,7 @@ Diese Testfälle wurden für dieses Projekt automatisiert. Es handelt sich dabei
 **Erwartetes Ergebnis**:
 - Es erscheint eine Fehlermeldung, dass nur numerische Eingaben gültig sind (bzw. HTTP-Status 400).
 
-## Testfall 16
+### Testfall 16
 
 **Beschreibung**: Persistierte Spiele anzeigen.
 **Vorbedingungen**:
@@ -221,7 +222,7 @@ Diese Testfälle wurden für dieses Projekt automatisiert. Es handelt sich dabei
 - Bei den beiden persistierten Spiele werden die Frames korrekt angezeigt mit 0 und X.
 - Bei den beiden persistierten Spiele werden die Scores korrekt angezeigt (0 und 300).
 
-## Testfall 17
+### Testfall 17
 
 **Beschreibung**: Das Spiel beenden, sobald es fertig ist.
 **Vorbedingungen**:
@@ -235,7 +236,7 @@ Diese Testfälle wurden für dieses Projekt automatisiert. Es handelt sich dabei
 - Das Spiel wurde persistiert und ist in der Liste der persistierten Spiele zu sehen.
 - Der Spielstand ist wieder im Ursprungszustand (keine Würfe).
 
-## Testfall 18
+### Testfall 18
 
 **Beschreibung**: Das Spiel beenden, wenn das Spiel noch nicht fertig ist.
 **Vorbedingungen**:
@@ -249,7 +250,7 @@ Diese Testfälle wurden für dieses Projekt automatisiert. Es handelt sich dabei
 - Das Spiel wurde noch nicht persistiert und ist in der Liste der persistierten Spiele nicht zu sehen.
 - Der Spielstand ist immer noch derselbe.
 
-## Testfall 19
+### Testfall 19
 
 **Beschreibung**: Den Spielstand zurücksetzen, sobald das Spiel fertig ist.
 **Vorbedingungen**:
@@ -263,7 +264,7 @@ Diese Testfälle wurden für dieses Projekt automatisiert. Es handelt sich dabei
 - Das Spiel wurde nicht persistiert und ist nicht in der Liste der persistierten Spiele zu sehen.
 - Der Spielstand ist wieder im Ursprungszustand (keine Würfe).
 
-## Testfall 20
+### Testfall 20
 
 **Beschreibung**: Man versucht, das Spiel zurückzusetzen, wenn es noch nicht fertig ist.
 **Vorbedingungen**:
@@ -275,3 +276,22 @@ Diese Testfälle wurden für dieses Projekt automatisiert. Es handelt sich dabei
 **Erwartetes Ergebnis**:
 - Es gibt eine Meldung, dass der Spielstand zurückgesetzt wurde (bzw. HTTP-Status 200).
 - Der Spielstand ist wieder im Ursprungszustand (keine Würfe).
+
+## Testprotokoll Beispiel
+
+- Identifikation: #1
+- Durchgeführt am: 23.11.2023, 11.45 Uhr
+- Durchgeführte Testfälle: Testfall 1, Testfall 2
+- Resultate:
+	- Testfall 1:
+		- Man bekommt nach dem ersten Wurf zunächst nur 10 Punkte. Sobald die nächsten beiden Würfe hinzukommen, steht beim ersten Frame 18 Punkte.
+		- Für den zweiten Frame bekommt man auch korrekt 8 Punkte.
+		- Der Strike wird mit einem X dargestellt.
+		- Der totale Score beträgt am Ende 26.
+	- Testfall 2:
+		- Ich habe 12 Male schnell hintereinander einen Request für 10 Pins gemacht. Danach wurde mir ein Bad Request gegeben, weil ich nicht mehr werfen kann und das Spiel zu Ende ist.
+		- Es werden die 12 Strikes mit 12 X dargestellt.
+		- Man hat am Schluss 300 Punkte.
+- Tester: Johannes Zeller
+- Fazit: Testdurchführungen sind alle erfolgreich
+- Genehmigung: Positiv
