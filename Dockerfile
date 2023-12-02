@@ -2,6 +2,7 @@
 FROM eclipse-temurin:21 AS build
 COPY . /home/app
 WORKDIR /home/app
+RUN chmod +x ./gradlew
 RUN ./gradlew bootJar --no-daemon
 
 # Stage 2: Create the final Docker image
