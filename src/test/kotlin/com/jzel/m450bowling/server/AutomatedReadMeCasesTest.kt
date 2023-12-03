@@ -1,6 +1,7 @@
 package com.jzel.m450bowling.server
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.jzel.m450bowling.server.business.service.SequentialExecutorService
 import com.jzel.m450bowling.server.persistence.domain.game.GamePersistence
 import com.jzel.m450bowling.server.webservice.adapter.rest.GameController
 import com.jzel.m450bowling.server.webservice.adapter.rest.GameThrowController
@@ -10,12 +11,17 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle
+import org.mockito.Mockito
+import org.mockito.Mockito.any
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.json.JacksonTester
+import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
+import java.util.concurrent.Callable
+import java.util.concurrent.CompletableFuture
 
 
 @ActiveProfiles("test")
@@ -26,7 +32,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders
         M450BowlingApplication::class,
         GameController::class,
         GameThrowController::class,
-        GamePersistence::class
+        GamePersistence::class,
+        SequentialExecutorService::class
     ]
 )
 @Transactional
@@ -44,12 +51,18 @@ class AutomatedReadMeCasesTest {
     @Autowired
     private lateinit var persistence: GamePersistence
 
+    @MockBean
+    private lateinit var executorService: SequentialExecutorService
+
     @BeforeEach
     fun init() {
         persistence.deleteAll()
         JacksonTester.initFields(this, ObjectMapper())
         mvc = MockMvcBuilders.standaloneSetup(gameController, throwController).build()
         helper = TestHelper(mvc)
+        Mockito.doAnswer { invocation ->
+            CompletableFuture.completedFuture(invocation.getArgument(0, Callable::class.java).call())
+        }.`when`(executorService).submitTask(any(Callable::class.java))
     }
 
     /**
